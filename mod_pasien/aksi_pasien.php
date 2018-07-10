@@ -14,7 +14,6 @@ include ("../config/fungsi_thumb.php");
             alert('Data pasien sudah ada!');
             window.location.href='../media.php?module=data_pasien';
             </script>";
-            
         }
         else{
         $query=mysql_query("INSERT INTO pasien (no_rm,nama_pasien,tgl_lahir,alamat,jenis_kelamin) VALUES ('$no_rm','$nama','$tgl','$almt','$jkl')");

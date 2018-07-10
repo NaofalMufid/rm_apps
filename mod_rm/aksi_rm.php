@@ -1,63 +1,37 @@
 <?php
 include ("../config/koneksi.php");
 	if($_GET['module']=='tambahrm'){
-		$t1=$_POST['t1'];
-		$t2=$_POST['t2'];
-		$t3=$_POST['t3'];
-		$t4=$_POST['t4'];
-		$t5="-";
-		$t7=date('Y-m-d');
-		$t6=date('H:i:s');
-		$t8=$_POST['t8'];
-		$t9="-";
-		$query=mysql_query("INSERT INTO rekammedik (nomorRm, kodepasien, kodedokter, keluhan, diagnosa, tindakan, jam, tgl, kodeuser) VALUES ('$t1','$t2','$t3','$t4','$t5','$t9','$t6','$t7','$t8')");
-		echo "<script>history.back(self);</script>";
-	}
-	elseif($_GET['module']=='tambah_tang'){
-		$t1=$_POST['t1'];
-		$t2=$_POST['t2'];
-		$t3=$_POST['t3'];
-		$t4=$_POST['t4'];
-		$t5="-";
-		$t7=date('Y-m-d');
-		$t6=date('H:i:s');
-		$t8=$_POST['t8'];
-		$t9="-";
-		$query=mysql_query("INSERT INTO rekammedik (nomorRm, kodepasien, kodedokter, keluhan, diagnosa, tindakan, jam, tgl, kodeuser) VALUES ('$t1','$t2','$t3','$t4','$t5','$t9','$t6','$t7','$t8')");
-		echo "<script>history.back(self);</script>";
-	}
-	elseif($_GET['module']=='ubah_diag'){
-		$t1=$_POST['t1'];
-		$t2=$_POST['t2'];
-		$t3=$_POST['t3'];
-        $penyakit=$_POST['penyakit'];
-        $status=$_POST['status'];
-		$kode=$_POST['kode'];
-        $spesialis=$_POST['spesialis'];
-        $rs=$_POST['rs'];
-		$query=mysql_query("UPDATE rekammedik SET diagnosa='$t2', tindakan='$t3', id_rs='$rs', spesialis='$spesialis', id_penyakit='$penyakit' WHERE nomorRm='$t1'");
-		header("location:../media.php?module=rekam_medik&&status=$status&&kodepasien=$kode");
+		$tgl= $_POST['tgl_trs'];
+		$id=$_POST['nounik'];
+		$anms=$_POST['anamnesa'];
+		$id_dgs=$_POST['id_dgs'];
+		$norm=$_POST['norm'];
+		
+		// filter tanggal
+		$stmt = mysql_query("SELECT tanggal_transaksi FROM transaksi WHERE no_rm='$norm' AND tanggal_transaksi='$tgl'");
+		$row=mysql_fetch_array($stmt);
+			
+		if($row['tanggal_transaksi']==$tgl) {
+			echo "<script>
+			alert('Maaf rekam medis tanggal $tgl sudah pernah.');
+			history.back(self);
+			</script>";
+		}else{
+			$query=mysql_query("INSERT INTO transaksi VALUES
+			('$id','$tgl','$anms','$id_dgs','$norm')");
+			echo "<script>history.back(self);</script>";
+		}
 	}
     elseif($_GET['module']=='tambahracik'){
-        $t1=$_POST['t1'];
-        $t2=$_POST['t2'];
-        $t3=$_POST['t3'];
-        $t4=$_POST['t4'];
-        $t5=$_POST['t5'];
-        $t6=$_POST['t6'];
-        $t7=$_POST['t7'];
         $kode_resep=$_POST['kode_resep'];
-        $kode=$_POST['kode'];
-        $status=$_POST['status'];
-        $tgl=date('Y-m-d');
-        $query=mysql_query("INSERT INTO racik_obat(kode_resep,nama_obat,racik,aturan_pakai,harga,pengambil_obat,petugas_apotek,id_dokter,kodepasien,tgl_racik) VALUES('$kode_resep','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$kode','$tgl')");
-        header("location:../media.php?module=rekam_medik&&status=$status&&kodepasien=$kode");
+        $id_obt=$_POST['id_obt'];
+        $pemakaian=$_POST['pemakaian'];
+        $idTrs=$_POST['idTrs'];
+        $tgl=$_POST['tgl_td'];
+        $qty=$_POST['qty'];
+        $harga=$_POST['harga'];
+        $jumlah=$_POST['jumlah'];
+        $query=mysql_query("INSERT INTO detail_transaksi_obat VALUES('$kode_resep','$id_obt','$pemakaian','$idTrs','$tgl','$qty','$harga','$jumlah')");
+        echo "<script>history.back(self);</script>";
     }
-    elseif($_GET['module']=='hapus_racik'){
-        $id_racik=$_GET['id_racik'];
-        $kode=$_GET['kode'];
-        $status=$_GET['status'];
-        $query=mysql_query("DELETE FROM racik_obat WHERE id_racik='$id_racik'");
-        header("location:../media.php?module=rekam_medik&&status=$status&&kodepasien=$kode");
-    }
-		?>
+?>

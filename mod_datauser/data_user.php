@@ -58,7 +58,13 @@ switch($_GET['act']){
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr class="head">
-							<td>No</td><td>Username</td><td>Level</td><td></td>
+							<td>No</td>
+							<td>Nama</td>
+							<td>Kontak</td>
+							<td>E-mail</td>
+							<td>Username</td>
+							<td>Level</td>
+							<td>Opsi</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,7 +75,12 @@ switch($_GET['act']){
 					while($r=mysql_fetch_array($query)){
 					?>					
 						<tr>
-							<td><?php echo $no; ?></td><td><?php echo $r['username']; ?></td><td><?php echo $r['level']; ?></td>
+							<td><?php echo $no; ?></td>
+							<td><?php echo $r['nama']; ?></td>
+							<td><?php echo $r['kontak']; ?></td>
+							<td><?php echo $r['email']; ?></td>
+							<td><?php echo $r['username']; ?></td>
+							<td><?php echo $r['level']; ?></td>
 							<td>
 								<a href="media.php?module=data_user&&act=edit&&kodeuser=<?php echo $r['id_user']; ?>" class="btn btn-info"><i class="icon-pencil"></i> Edit</a>
 							</td>
@@ -80,7 +91,7 @@ switch($_GET['act']){
 					}
 					?>
 					<tr>
-							<td colspan="7">
+							<td colspan="6">
 							<?php
 							$jmldata=mysql_num_rows(mysql_query("SELECT * FROM user"));
 							$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
@@ -97,11 +108,11 @@ switch($_GET['act']){
 <?php
 break;
 case "tambah":
-$time_stamp = date("sdy");
-$acak1=$time_stamp;
+$acak1=date('my');
+echo "$acak1";
 function acakangkahuruf($panjang)
 {
-    $karakter= '0123456789';
+    $karakter= 'QWERTYUIOPMNBVCXZASDFGHJKL';
     $string = '';
     for ($i = 0; $i < $panjang; $i++) {
   $pos = rand(0, strlen($karakter)-1);
@@ -109,8 +120,8 @@ function acakangkahuruf($panjang)
     }
     return $string;
 }
-$acak2=acakangkahuruf(3);
-$nounik="US-".$acak1.$acak2;
+$acak2=acakangkahuruf(4);
+$nounik=$acak1.$acak2;
 	?>
 		<section>
 		<ul class="breadcrumb" style="margin-bottom: 5px;">
@@ -127,47 +138,21 @@ $nounik="US-".$acak1.$acak2;
 				<div class="span3 offset1">
 				
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">Nama Depan</label>
+								<label class="control-label" for="inputPassword">Nama</label>
 								<div class="controls">
-								<input type="text" class="span10" id="inputText" name="t2" required>
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Jenis Kelamin</label>
-								<label class="radio">
-								<input type="radio" name="t4" id="optionsRadios1" value="L" required>
-								Laki-Laki
-								</label>
-								<label class="radio">
-								<input type="radio" name="t4" id="optionsRadios1" value="P" required>
-								Perempuan
-								</label>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Tanggal Lahir</label>
-								<div class="controls">
-								<input type="date" id="inputText"  class="span12" name="t7" required>
+								<input type="text" class="span10" id="nama" name="nama" required>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">No Handphone</label>
+								<label class="control-label" for="inputPassword">Kontak</label>
 								<div class="controls">
-								<input type="number" id="inputText" name="t6" required> 
+								<input type="text" id="kontak" name="kontak" required> 
 								</div>
 							</div>
-							
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">Alamat</label>
+								<label class="control-label" for="inputPassword">E-mail</label>
 								<div class="controls">
-								<textarea name="t5" required></textarea>
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Photo</label>
-								<div class="controls">
-								<input type="file" name="fupload">
+								<input type="email" id="email" name="email" required> 
 								</div>
 							</div>
 							<hr>
@@ -178,22 +163,7 @@ $nounik="US-".$acak1.$acak2;
 								</div>
 							</div>
 				</div>
-				<div class="span3">							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Nama Belakang</label>
-								<div class="controls">
-								<input type="text" id="inputText" class="span12" name="t3" required>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Kode User</label>
-								<div class="controls">
-								<input type="text" id="inputText"  class="span6" value="<?php echo $nounik; ?>" disabled>
-								<input type="hidden" id="inputText"  class="span6" value="<?php echo $nounik; ?>" name="t1">
-								</div>
-							</div>
-							
-							<hr>
+				<div class="span3">
 							<div class="span12" style="border:1px solid #fff;border-radius:5px;padding:10px;background:#54c7dc">
 							<ul class="pop pull-right">
 								<li><a href="#" class="btn" data-toggle="popover" data-placement="right" data-content="Username &amp; Password Tidak Boleh Kosong." title="Question"><i class="icon-question-sign"></i></a></li>
@@ -201,14 +171,14 @@ $nounik="US-".$acak1.$acak2;
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Username</label>
 								<div class="controls">
-								<input type="text" id="inputText" class="span12" name="t8" required>
+								<input type="text" id="uname" class="span12" name="uname" required>
 								</div>
 							</div>
 			
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Password</label>
 								<div class="controls">
-								<input type="password" id="inputPassword" class="span12" name="t9" required>
+								<input type="text" id="upass" class="span12" name="upass" value="<?=$nounik?>" required="" readonly="">
 								</div>
 							</div>
 							</div>
@@ -224,7 +194,7 @@ break;
 
 case "edit":
 $kodeuser=$_GET['kodeuser'];
-$query=mysql_query("SELECT * FROM user_man WHERE kodeUser='$kodeuser'");
+$query=mysql_query("SELECT * FROM user WHERE id_user='$kodeuser'");
 $r=mysql_fetch_array($query);
 ?>
 	<section>
@@ -237,80 +207,27 @@ $r=mysql_fetch_array($query);
 			<div class="span12 pull-left">
 				<form method="post" enctype="multipart/form-data" action="<?php echo "$aksi?module=edit"; ?>">
 				<fieldset>
+					<input type="hidden" name="id" value="<?=$kodeuser?>">
 				<legend class="span7 offset1">Update User</legend>
 				<div class="clear"></div>
 				<div class="span3 offset1">
 				
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">Nama Depan</label>
+								<label class="control-label" for="inputPassword">Nama</label>
 								<div class="controls">
-								<input type="text" class="span10" id="inputText" name="t2" value="<?php echo $r['first_name']; ?>">
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Jenis Kelamin</label>
-								<?php
-								$jk=$r['jk'];
-								if($jk=='L'){
-								?>
-									<label class="radio">
-									<input type="radio" name="t4" id="optionsRadios1" value="L" checked>
-									Laki-Laki
-									</label>
-									<label class="radio">
-									<input type="radio" name="t4" id="optionsRadios1" value="P">
-									Perempuan
-									</label>
-								<?php
-								}
-								else{
-								?>
-									<label class="radio">
-									<input type="radio" name="t4" id="optionsRadios2" value="L" >
-									Laki-Laki
-									</label>
-									<label class="radio">
-									<input type="radio" name="t4" id="optionsRadios2" value="P" checked>
-									Perempuan
-									</label>
-								
-								<?php
-								}
-								?>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Tanggal Lahir</label>
-								<div class="controls">
-								<input type="date" id="inputText"  class="span12" name="t7"  value="<?php echo $r['tgl_lahir']; ?>">
+								<input type="text" class="span10" id="nama" name="nama" value="<?php echo $r['nama']; ?>">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">No Handphone</label>
+								<label class="control-label" for="inputPassword">Kontak</label>
 								<div class="controls">
-								<input type="number" id="inputText" name="t6" value="<?php echo $r['no_hp']; ?>">
+								<input type="text" id="kontak" name="kontak" value="<?php echo $r['kontak']; ?>">
 								</div>
 							</div>
-							
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">Alamat</label>
+								<label class="control-label" for="inputPassword">E-mail</label>
 								<div class="controls">
-								<textarea name="t5"><?php echo $r['alamat']; ?></textarea>
-								</div>
-							</div>
-							<?php
-							
-							$foto=$r['photo'];
-							if(isset($foto)){
-								echo "<img src='photo_user/$foto' style='width:150px;height:170px'>";
-							}
-							?>
-							<img src="">
-							
-							<div class="control-group">
-								
-								<div class="controls">
-								<input type="file" name="fupload">
+								<input type="email" id="email" name="email" value="<?php echo $r['email']; ?>">
 								</div>
 							</div>
 							<hr>
@@ -320,18 +237,8 @@ $r=mysql_fetch_array($query);
 								<button type="reset" class="btn btn-warning"><i class="icon-refresh icon-white"></i> Reset</button>
 								</div>
 							</div>
-				</div>
-				<div class="span3">							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword">Nama Belakang</label>
-								<div class="controls">
-								<input type="text" id="inputText" class="span12" name="t3" value="<?php echo $r['last_name']; ?>">
-								<input type="hidden" id="inputText" class="span12" name="t1" value="<?php echo $r['kodeUser']; ?>">
-								</div>
-							</div>
-							
-							
-							<hr>
+						</div>
+						<div class="span3">							
 							<div class="span12" style="border:1px solid #fff;border-radius:5px;padding:10px;background:#54c7dc">
 							<ul class="pop pull-right">
 								<li><a href="#" class="btn" data-toggle="popover" data-placement="right" data-content="Username &amp; Password Tidak Boleh Kosong." title="Question"><i class="icon-question-sign"></i></a></li>
@@ -339,14 +246,14 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Username</label>
 								<div class="controls">
-								<input type="text" id="inputText" class="span12" name="t8"  value="<?php echo $r['username']; ?>">
+								<input type="text" id="uname" class="span12" name="uname"  value="<?php echo $r['username']; ?>" readonly="">
 								</div>
 							</div>
 			
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Password</label>
 								<div class="controls">
-								<input type="text" id="inputPassword" class="span12" name="t9"  value="<?php echo $r['password']; ?>">
+								<input type="text" id="upass" class="span12" name="upass"  value="<?php echo $r['password']; ?>">
 								</div>
 							</div>
 							</div>

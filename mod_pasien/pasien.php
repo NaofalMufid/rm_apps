@@ -42,15 +42,13 @@ switch($_GET['act']){
 			
 		</ul>
 		<div class="control-group pull-left">
-			<button class="btn btn-primary" type="button" onclick="window.location='media.php?module=data_pasien&&act=tambah_pasien'"><i class="icon-plus icon-white"></i> Tambah Pasien</button>
-            
-            
+			<button class="btn btn-primary" type="button" onclick="window.location='media.php?module=data_pasien&&act=tambah_pasien'"><i class="icon-plus icon-white"></i> Tambah Pasien</button>            
 		</div>
 		<form class="form-search pull-right">
-							<div class="input-prepend">
-								<span class="add-on"><i class="icon-search"></i></span>
-								<input class="span3" id="txtcari" type="text" placeholder="Search">
-							</div>
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-search"></i></span>
+				<input class="span3" id="txtcari" type="text" placeholder="Search">
+			</div>
 		</form>
 		<hr>
 		<div class="row-fluid">
@@ -60,7 +58,14 @@ switch($_GET['act']){
 				<table class="table table-bordered table-striped table-responsive">
 					<thead>
 						<tr class="head1">
-							<td>No</td><td>No. Rekam Medis</td><td>Nama Pasien</td><td>Tanggal Lahir</td><td>Usia</td><td>Alamat</td><td>Jenis Kelamin</td><td></td>
+							<td>No</td>
+							<td>No. Rekam Medis</td>
+							<td>Nama Pasien</td>
+							<td>Tanggal Lahir</td>
+							<td>Usia</td>
+							<td>Alamat</td>
+							<td>Jenis Kelamin</td>
+							<td>Opsi</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,7 +86,7 @@ switch($_GET['act']){
 					}
 					?>
 					<tr>
-							<td colspan="9">
+							<td colspan="7">
 							<?php
 							$jmldata=mysql_num_rows(mysql_query("SELECT * FROM pasien"));
 							$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
@@ -128,41 +133,41 @@ $newRM = $char.sprintf("%04s",$noUrut);
 				<fieldset>
 				<legend class="span7 offset1">Tambah Pasien</legend>
 				<div class="clear"></div>
-				<div class="span3 offset1">							
+				<div class="span6 offset1">							
 						
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">No. Rekam Medis</label>
 								<div class="controls">
 								
-								<input type="number" class="span6" value="<?php echo $newRM; ?>" name="no_rm" readonly="readonly">
+								<input type="number" class="span6" value="<?php echo $newRM; ?>" name="no_rm" readonly="readonly" required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Nama Pasien</label>
 								<div class="controls">
 								
-								<input type="text" class="span6" name="nama">
+								<input type="text" class="span6" name="nama"required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Tanggal Lahir</label>
 								<div class="controls">
 								
-								<input type="date" class="span6" name="tgl_lahir">
+								<input type="date" class="span6" name="tgl_lahir" required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Alamat</label>
 								<div class="controls">
-								<textarea name="alamat" class="span6"></textarea>
+								<textarea name="alamat" class="span6" required=""></textarea>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Jenis Kelamin</label>
 								<div class="controls">
 								
-								<input type="radio" class="span1" value="L" name="jk"> Laki-laki
-								<input type="radio" class="span1" value="P" name="jk"> Perempuan
+								<input type="radio" class="span1" value="L" name="jk" required=""> Laki-laki
+								<input type="radio" class="span1" value="P" name="jk" required=""> Perempuan
 								</div>
 							</div>
 							<hr>
@@ -204,28 +209,25 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">No. Rekam Medis</label>
 								<div class="controls">
-								
-								<input type="number" class="span6" value="<?php echo $r['no_rm']; ?>" name="no_rm" readonly="readonly">
+								<input type="number" class="span6" value="<?php echo $r['no_rm']; ?>" name="no_rm" readonly="readonly" required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Nama Pasien</label>
 								<div class="controls">
-								
-								<input type="text" class="span6" name="nama" value="<?php echo $r['nama_pasien']; ?>">
+								<input type="text" class="span6" name="nama" value="<?php echo $r['nama_pasien']; ?>" required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Tanggal Lahir</label>
 								<div class="controls">
-								
-								<input type="date" class="span6" name="tgl_lahir" value="<?php echo $r['tgl_lahir']; ?>">
+								<input type="date" class="span6" name="tgl_lahir" value="<?php echo $r['tgl_lahir']; ?>" required="">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Alamat</label>
 								<div class="controls">
-								<textarea name="alamat" class="span6"><?php echo $r['alamat']; ?></textarea>
+								<textarea name="alamat" class="span6" required=""><?php echo $r['alamat']; ?></textarea>
 								</div>
 							</div>
 							<div class="control-group">

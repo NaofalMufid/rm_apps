@@ -13,8 +13,7 @@ $aksi="mod_dataobat/aksi_dataobat.php";
 						</tr>
 					</thead>
 					<tbody>
-					<?php
-					
+					<?php					
 					$query=mysql_query("SELECT * FROM obat WHERE nama_obat LIKE '%".$kodepasien."%'");
 					$no=1;					
 					$num=mysql_num_rows($query);
@@ -22,21 +21,13 @@ $aksi="mod_dataobat/aksi_dataobat.php";
 					while($r=mysql_fetch_array($query)){
 					?>					
 						<tr>
-							<td><?php echo $no; ?></td><td><?php echo $r['nama_obat']; ?></td>
-							<?php 
-                            //$id_obt=$r['id_obat']; <td>
-                            //$cekobt=mysql_query("SELECT * FROM obat WHERE id_obat='$id_obt'");
-                            //$ro=mysql_fetch_array($cekobt);
-                            //echo $obt_sekrng=$r['jmlh_obat']-$ro['ambil']; </td>
-                        	?>
-						<td><?php echo $r['harga_obat']; ?></td><td><?php echo $r['keterangan']; ?></td><td><div class="btn-group">
-								<a class="btn btn-info" href="#"><i class="icon-wrench icon-white"></i> Actions</a>
-								<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="media.php?module=dataobat&&act=edit&&kodeobat=<?php echo $r['id_obat']; ?>"><i class="icon-pencil"></i> Edit</a></li>
-									<li><a href="<?php echo "$aksi?module=hapus&&kode_obat=$r[id_obat]";?>" onclick="return confirm('Apakah anda yakin, ingin menghapus obat <?php echo $r['nama_obat']; ?>?')"><i class="icon-trash"></i> Delete</a></li>									
-								</ul>
-							</div></td>
+							<td><?php echo $no; ?></td>
+							<td><?php echo $r['nama_obat']; ?></td>
+							<td><?php echo $r['harga_obat']; ?></td>
+							<td><?php echo $r['keterangan']; ?></td>
+							<td>
+								<a href="media.php?module=dataobat&&act=edit&&kodeobat=<?php echo $r['id_obat']; ?>" class="btn btn-info"><i class="icon-pencil"></i> Edit</a>
+							</td>
 						</tr>
 					
 					<?php

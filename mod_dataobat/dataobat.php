@@ -58,7 +58,11 @@ switch($_GET['act']){
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr class="head">
-							<td>No</td><td>Nama Obat</td><td>Harga Obat</td><td>Keterangan</td><td></td>
+							<td>No</td>
+							<td>Nama Obat</td>
+							<td>Harga Obat</td>
+							<td>Keterangan</td>
+							<td>Opsi</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -80,7 +84,7 @@ switch($_GET['act']){
 					}
 					?>
 					<tr>
-							<td colspan="5">
+							<td colspan="4">
 							<?php
 							$jmldata=mysql_num_rows(mysql_query("SELECT * FROM obat"));
 							$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
@@ -115,7 +119,7 @@ case "tambah":
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Nama Obat</label>
 								<div class="controls">
-								<input type="text" class="span12" id="inputText" name="namaObat">
+								<input type="text" class="span12" id="inputText" name="namaObat" required="">
 								</div>
 							</div>
 							
@@ -123,7 +127,7 @@ case "tambah":
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Harga Obat</label>
 								<div class="controls">
-								<input type="number" class="span3" id="inputText" name="hargaObat">
+								<input type="number" class="span6" id="inputText" name="hargaObat" required="">
 								</div>
 							</div>
 					
@@ -131,7 +135,7 @@ case "tambah":
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Keterangan</label>
 								<div class="controls">
-								<textarea class="span12" name="keterangan"></textarea>
+								<textarea class="span12" name="keterangan" required=""></textarea>
 								</div>
 							</div>
 							
@@ -178,7 +182,7 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Nama Obat</label>
 								<div class="controls">
-								<input type="text" class="span12" id="inputText" name="namaObat" value="<?php echo $r['nama_obat']; ?>">
+								<input type="text" class="span12" id="inputText" required="" name="namaObat" value="<?php echo $r['nama_obat']; ?>">
 								</div>
 							</div>
 							
@@ -186,7 +190,7 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Harga Obat</label>
 								<div class="controls">
-								<input type="number" class="span3" id="inputText" name="hargaObat" value="<?php echo $r['harga_obat']; ?>">
+								<input type="number" class="span3" id="inputText" required="" name="hargaObat" value="<?php echo $r['harga_obat']; ?>">
 								</div>
 							</div>
 
@@ -194,7 +198,7 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword">Keterangan</label>
 								<div class="controls">
-								<textarea class="span12" name="keterangan"><?php echo $r['keterangan']; ?></textarea>
+								<textarea class="span12" required="" name="keterangan"><?php echo $r['keterangan']; ?></textarea>
 								</div>
 							</div>
 				

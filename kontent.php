@@ -73,7 +73,7 @@
 				<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>Selamat datang <strong><?php echo $rus['username']; ?></strong> <?php echo date('D m Y'); ?>.</div>							
 					<ul class="thumbnails">
 						<li class="span3">
-							<a data-toggle="modal" href="#regist" class="thumbnail">
+							<a data-toggle="modal" href="media.php?module=data_pasien&&act=tambah_pasien" class="thumbnail">
 								<img src="img/regis.png" alt="">
                                 
 							</a>
@@ -90,82 +90,39 @@
 	
 					<h5>LAPORAN</h5>
                 <ul class="thumbnails">
-						<li class="span3">
-							<a data-toggle="modal" href="#lapPenyakit" class="thumbnail">
-								<img src="img/lap_1.png" alt="">
-							</a>
-						</li>
-                        <li class="span3">
-							<a data-toggle="modal" href="#lapKonsep" class="thumbnail">
-								<img src="img/lap_2.png" alt="">
-							</a>
-						</li>
+					<li class="span3">
+						<a data-toggle="modal" href="#lapPenyakit" class="thumbnail">
+							<img src="img/lap_1.png" alt="">
+						</a>
+					</li>
+					<li class="span3">
+						<a data-toggle="modal" href="#lapPeriksa" class="thumbnail">
+							<img src="img/lap_6.png" alt="">
+						</a>
+					</li>
                     <li class="span3">
-							<a data-toggle="modal" href="#lapPeriksa" class="thumbnail">
-								<img src="img/lap_6.png" alt="">
-							</a>
-						</li>
-                        
+						<a data-toggle="modal" href="#lapObat" class="thumbnail">
+							<img src="img/lap_4.png" alt="">
+						</a>
+					</li>
                     <li class="span3">
-							<a data-toggle="modal" href="#lapObat" class="thumbnail">
-								<img src="img/lap_4.png" alt="">
-							</a>
-						</li>
+						<a data-toggle="modal" href="#lapRm" class="thumbnail">
+							<img src="img/lap_5.png" alt="">
+						</a>
+					</li>
                     
                 </ul>
-                <ul class="thumbnails">
-						
-                    <li class="span3">
-							<a data-toggle="modal" href="#lapRm" class="thumbnail">
-								<img src="img/lap_5.png" alt="">
-							</a>
-						</li>
-                </ul>
                 
-                <!--<ul class="thumbnails">
-						<li class="span3">
-							<a data-toggle="modal" href="#lapPasien" class="thumbnail">
-								<img src="img/lap_pasien.png" alt="">
-							</a>
-						</li>
-<li class="span3">
-							<a data-toggle="modal" href="#lapRawatinap" class="thumbnail">
-								<img src="img/lap_3.png" alt="">
-							</a>
-						</li>
-                        <li class="span3">
-							<a data-toggle="modal" href="#lapRm" class="thumbnail">
-								<img src="img/lap_rekam.png" alt="">
-							</a>
-						</li>
-						<li class="span3">
-							<a data-toggle="modal" href="#lapDokter" class="thumbnail">
-								<img src="img/lap_dokter.png" alt="">
-							</a>
-						</li>
-						<li class="span3">
-							<a href="laporan/f_dataobat.php" target="_blank" class="thumbnail">
-								<img src="img/lap_obat.png" alt="">
-							</a>
-						</li>
-					
-						
-						
-					</ul>
-                    -->
-				
-				
 					<!-- tombol untuk memicu modal -->
 						
 				    <div id="lapPenyakit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							
 							<div class="modal-body">
 								<h3>Laporan Penyakit</h3>
-								<form method="get" action="laporan/f_penyakit.php">
+								<form method="get" action="laporan/penyakit.php">
 									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
                                     <div class="control-group">
-								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan
-</label>
+								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan</label>
 								<div class="controls">
 								<input type="text" class="span10" id="inputText" name="manajer">
 								</div>
@@ -173,36 +130,15 @@
 									<button type="submit" class="btn">Cetak</button>
 								</form>
 							</div>
-							
-						</div>   
-                
-                        <div id="lapKonsep" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body">
-								<h3>Laporan Konsultasi Dokter Spesial</h3>
-								<form method="get" action="laporan/f_konsep.php">
-									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
-                                    <div class="control-group">
-								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan
-</label>
-								<div class="controls">
-								<input type="text" class="span10" id="inputText" name="manajer">
-								</div>
-							</div>
-									<button type="submit" class="btn">Cetak</button>
-								</form>
-							</div>
-							
 						</div> 
                 <div id="lapPeriksa" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							
 							<div class="modal-body">
 								<h3>Laporan Pemeriksaan</h3>
-								<form method="get" action="laporan/f_pemeriksaan.php">
+								<form method="get" action="laporan/pemeriksaan.php">
 									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
                                     <div class="control-group">
-								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan
-</label>
+								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan</label>
 								<div class="controls">
 								<input type="text" class="span10" id="inputText" name="manajer">
 								</div>
@@ -213,110 +149,33 @@
 							
 						</div> 
                 
-               <!-- <div id="lapPoli" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body">
-								<h3>Laporan Kunjungan di Poliklinik</h3>
-								<form method="get" action="laporan/f_poli.php">
-									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
-                                    <div class="control-group">
-								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan
-</label>
-								<div class="controls">
-								<input type="text" class="span10" id="inputText" name="manajer">
-								</div>
-							</div>
-									<button type="submit" class="btn">Cetak</button>
-								</form>
-							</div>
-							
-						</div>  
-                
-                -->
-                    <div id="lapRawatinap" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body">
-								<h3>Laporan Rawat Inap</h3>
-								<form method="get" action="laporan/f_rawatinap.php">
-									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
-                                    <div class="control-group">
-								<label class="control-label" for="inputPassword">Jr Manajer Personalia &amp Kesejahteraan
-</label>
-								<div class="controls">
-								<input type="text" class="span10" id="inputText" name="manajer">
-								</div>
-							</div>
-									<button type="submit" class="btn">Cetak</button>
-								</form>
-							</div>
-							
-						</div>  
-                
                 <div id="lapObat" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							
-							<div class="modal-body">
-								<h3>Laporan Obat</h3>
-								<form method="get" action="laporan/f_obat.php">
-									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
-                                 
-									<button type="submit" class="btn">Cetak</button>
-								</form>
-							</div>
+					<div class="modal-body">
+						<h3>Laporan Obat</h3>
+						<form method="get" action="laporan/obat.php">
+							<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
 							
-						</div>  
+							<button type="submit" class="btn">Cetak</button>
+						</form>
+					</div>
+					
+				</div>  
                 
                 
-						<!-- Modal -->
-						<div id="lapDokter" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body">
-								<a href="laporan/f_datadok.php" target="_blank">LAORAN DATA DOKTER</a><p>
-								<a href="laporan/f_jaddok.php" target="_blank">LAORAN JADWAL DOKTER</a>
-							</div>
-							
-						</div>   
-                        
-						 
-						
-						<!-- Modal -->
-						<div id="lapPasien" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body">
-								<h3>Periode</h3>
-								<form method="get" action="laporan/f_datapas.php">
-									<input type="date" name="tgl1"> - <input type="date" name="tgl2"><p>
-									<button type="submit" class="btn">Cetak</button>
-								</form>
-							</div>
-							
-						</div>   
-                
-                <div id="lapRm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<!-- Modal -->
+				<div id="lapRm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							
 							<div class="modal-body">
 								<h3>Periode Kunjungan Pasien</h3>
-								<form method="get" action="laporan/f_rekammedik.php">
+								<form method="get" action="laporan/pasien.php">
 									<input type="date" name="tgl1"> - <input type="date" name="tgl2">
 									<button type="submit" class="btn">Cetak</button>
 								</form>
 							</div>
 							
 						</div>   
-                
-                <div id="regist" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							
-							<div class="modal-body center">
-								<h3>Registrasi Pasien</h3>
-                                <a href="media.php?module=data_pasien&&act=tambah_pasien">
-								    <img src="img/addpas.png">
-                                </a>
-                                <a href="media.php?module=tanggungan&&act=tambah">
-                                    <img src="img/addtang.png">
-                                </a>
-							</div>
-							
-						</div>   
-						
+                	
 			</div>
 		</div>
 	</section>

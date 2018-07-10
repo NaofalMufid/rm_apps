@@ -21,7 +21,7 @@
 				<form method="post" action="cek_log.php">
 					<fieldset>
 								<label>Username</label>
-								<input type="text" class="span4" name="username" autocomplete="off">
+								<input type="text" class="span4" name="username" autocomplete="off" autofocus="">
 								
 								<label>Password</label>
 								<input type="password" class="span4" name="password">

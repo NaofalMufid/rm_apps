@@ -2,95 +2,81 @@
 $aksi="mod_rm/aksi_rm.php";
 switch($_GET['act']){
 	default:
-?>
+	?>
 	<script type="text/javascript">
-		$(document).ready(function() {
-		<!-- event textbox keyup
-		// pencarian pasien
-		$("#txtkdpasien").keyup(function() {
-			var strcari = $("#txtkdpasien").val();
-			if (strcari != ""){
-				$("#hasil").html("<img src='img/loader.gif'/>")
-				$.ajax({
-					type:"post",
-					url:"mod_rm/cari_pasien.php",
-					data:"q="+ strcari,
-					success: function(data){
-					$("#hasil").css("display", "block");
-					$("#hasil").html(data);			  
-				}
+		 $(document).ready(function() {
+		  <!-- event textbox keyup
+		  // cari pasien
+		  $("#txtkdpasien").keyup(function() {
+		   var strcari = $("#txtkdpasien").val();
+		   if (strcari != "")
+		   {
+			$("#hasil").html("<img src='img/loader.gif'/>")
+			$.ajax({
+			 type:"post",
+			 url:"mod_rm/cari_pasien.php",
+			 data:"q="+ strcari,
+			 success: function(data){
+			 $("#hasil").css("display", "block");
+			  $("#hasil").html(data);			  
+			 }
 			});
-			}else{
-				$("#hasil").css("display", "block");
-			}
-		});
-			  
-		// pencarian obat
-		$("#txtobat").click(function() {
-			var strobat = $("#txtobat").val();
-			if (strobat != ""){
-				$("#hasils").html("<img src='img/loader.gif'/>")
-				$.ajax({
-					type:"post",
-					url:"mod_rm/input_obat.php",
-					data:"q="+ strobat,
-					success: function(data){
-					$("#hasils").css("display", "block");
-				$("#inpt").css("display", "block");
-					$("#hasils").html(data);			  
-					}
+		   }
+		   else{
+		   $("#hasil").css("display", "block");
+		   }
+		  });
+
+		  // cari obat		  		
+		  $("#txtobat").click(function() {
+		   var strobat = $("#txtobat").val();
+		   if (strobat != "")
+		   {
+			$("#hasils").html("<img src='img/loader.gif'/>")
+			$.ajax({
+			 type:"post",
+			 url:"mod_rm/input_obat.php",
+			 data:"q="+ strobat,
+			 success: function(data){
+			 $("#hasils").css("display", "block");
+			$("#inpt").css("display", "block");
+			  $("#hasils").html(data);			  
+			 }
 			});
-			}else{
-				$("#hasils").css("display", "block");
-			}
+		   }
+		   else{
+		   $("#hasils").css("display", "block"); 
+		   }
+		  });
+             
 		});
-			 
-		  // pencarian tindakan
-		$("#tindakan").click(function() {
-			var strtindakan = $("#tindakan").val();
-			if (strtindakan != ""){
-			$("#hasil_tindakan").html("<img src='img/loader.gif'/>")
-				$.ajax({
-					type:"post",
-					url:"mod_rm/tindakan.php",
-					data:"q="+ strtindakan,
-					success: function(data){
-					$("#hasil_tindakan").css("display", "block");
-					$("#hasil_tindakan").html(data);			  
-					}
-				});
-			}else{
-				$("#hasil_tindakan").css("display", "block");
-			}
-		});
-		 
-			});
-	</script>
-	
-<section>
+	</script>	
+	<section>
 		<div class="row-fluid">
-			<div class="span2 pull-left">				
-			<!-- Detail Pasien -->
-			<?php
-			$kode=$_GET['kodepasien'];
-			$status=$_GET['status'];
-			if($kode!='' AND $status=='pasien'){
-				$qupas=mysql_query("SELECT * FROM pasien WHERE no_rm='$kode'");
-				$rpas=mysql_fetch_array($qupas);
-			?>
-				<div class="control-group">				
+			<div class="span2 pull-left">
+				<div class="span12" style="background:#fff;">
+				
+				<?php
+				$kode=$_GET['kodepasien'];
+				$status=$_GET['status'];
+				$tgl_skrg = date('Y-m-d');
+				if($kode!='' AND $status=='pasien'){
+					$qupas=mysql_query("SELECT * FROM pasien WHERE no_rm='$kode'");
+					$rpas=mysql_fetch_array($qupas);
+				?>
+					<div class="control-group">				
 						<div class="rm_text">
+						<label class="control-label" for="inputText">NO. PASIEN</label>
 							<div class="controls">
 							<input type="text" class="span12" id="txtkdpasien" value="<?php echo $rpas['no_rm'] ?>" disabled>
 							</div>
 						</div>
-				</div>
+					</div>
 					<div class="control-group">
-						<label class="control-label" for="inputText">Nama Pasien</label>
+						<label class="control-label" for="inputText">Nama Lengkap</label>
 						<div class="controls">
 						<input type="text" class="span12" id="inputText" value="<?php echo $rpas['nama_pasien']; ?>" disabled>
 						</div>
-					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputText">Jenis Kelamin</label>
 						<div class="controls">
@@ -115,571 +101,361 @@ switch($_GET['act']){
 						<textarea class="span12" disabled><?php echo $rpas['alamat']; ?></textarea>
 						</div>
 					</div>
-			</div>						
-			<!-- End Pasien -->
+					</div>						
 				<?php
-                }else{
+				}else{
 				?>
-				<!-- Pencaria Pasien -->
 				<div class="control-group">						
 					<div class="rm_text">
 						<div class="controls">
-						<input type="text" class="span12" id="txtkdpasien" placeholder="Masukkan Kode Pasien">
+							<input type="text" class="span12" id="txtkdpasien" placeholder="Masukkan Kode Pasien" min="1" max="999999" maxlength="6" onkeyup="angka(this);"/>
 						</div>
 					</div>
 				</div>
-				<!--End-->
 				<?php
 				}
 				?>
-		</div>	
-
-			<div class="span12 pull-right">
+				</div>
+			</div>
+			<div class="span10 thumb pull-right">
 				<?php
 				if(isset($kode)){
-				$querm=mysql_query("SELECT * FROM rekammedik");
-				$num=mysql_num_rows($querm);
-				$jmlh=$num+1;
+				$bukadiag=$_GET['diagnosa'];
+				$koderm=$_GET['koderm'];
+				$inobat = $_GET['input_obat'];
 				$waktu=date('dmy');
-				$nounik="RM-".$waktu.$jmlh;
+				$querm=mysql_query("SELECT * FROM transaksi");
+				$num=mysql_num_rows($querm)+1;
+				$cek=mysql_query("SELECT * FROM detail_transaksi_obat WHERE id_transaksi='$koderm'");
+				$banyak=mysql_num_rows($cek)+1;
+				$nounik=$waktu.$num;
 				?>
 				<div class="tabbable" style="margin-bottom: 18px;">
-				<!-- Tab Panel -->
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab1" data-toggle="tab"><span class="fa fa-medkit"></span> Data Rekam Medik</a></li>
-						<li><a href="#racikObt" data-toggle="tab"><span class="fa fa-refresh"></span> Racik Obat</a></li>
-                        <li><a href="media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>"><span class="fa fa-refresh"></span> Reload</a></li>
+						<li><a href="media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>"><span class="fa fa-refresh"></span> Reload</a></li>
                         
                         <li><a href="media.php?module=rekam_medik"><span class="fa fa-close"></span> Exit</a></li>
 					</ul>
-				<!-- End -->	
 				<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-					<?php
-						$bukadiag=$_GET['diagnosa'];
-						$koderm=$_GET['koderm'];
-						if($bukadiag=='on'){
-						?>
-						<div class="tab-pane active" id="tab3">
-						<div class="control-group">
-						<?php
-						$qkel=mysql_query("SELECT * FROM rekammedik WHERE nomorRm='$koderm'");
-						$rkel=mysql_fetch_array($qkel);
-						?>
-						<form method="post" action="<?php echo $aksi."?module=ubah_diag" ?>">
-						<input type="hidden" name="t1" value="<?php echo $rkel['nomorRm'] ?>">
-						<input type="hidden" name="kode" value="<?php echo $kode; ?>">
-						<div class="control-group">
-									<label class="control-label" for="inputEmail">Keluhan</label>
-									<div class="controls">
-                                    <input type="hidden" name="status" value="<?php echo $status; ?>">
-									<textarea class="span8" name="t4" disabled><?php echo $rkel['keluhan'];?></textarea>
-									</div>
-						</div>
-						<div class="control-group">
-									<label class="control-label" for="inputEmail">Diagnosa</label>
-									<div class="controls">
-									<textarea class="span8" name="t2"></textarea>
-									</div>
-						</div>
-                            <div class="control-group">
-									<label class="control-label" for="inputEmail">Nama Penyakit</label>
-									<div class="controls">
-									<select name="penyakit">
-										<option>Pilih Penyakit</option>
-										<?php
-										$qtind=mysql_query("SELECT * FROM penyakit");
-										while($rtind=mysql_fetch_array($qtind)){
-										?>
-										<option value="<?php echo $rtind['id_penyakit']; ?>"><?php echo $rtind['nama_penyakit']; ?></option>
-										<?php
-										}
-										?>
-									</select>
-									</div>
-						</div>
-						<div class="control-group">
-									<label class="control-label" for="inputEmail">Tindakan</label>
-									<div class="controls">
-									<select name="t3" id="tindakan">
-										<option>Pilih Tindakan</option>
-										<?php
-										$qtind=mysql_query("SELECT * FROM tindakan");
-										while($rtind=mysql_fetch_array($qtind)){
-										?>
-										<option value="<?php echo $rtind['id_tindakan']; ?>"><?php echo $rtind['nm_tindakan']; ?></option>
-										<?php
-										}
-										?>
-									</select>
-									</div>
-						</div>
-                            <div id="hasil_tindakan"></div>
-									<div class="controls">								
-									<button class="btn btn-danger" data-toggle="tab"   onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>'"><i class="icon-arrow-left icon-white"></i> Back</button>
-									<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-									</div>
-									</form>
-							</div>
-						
-						</div>
-						<?php
-						}else{
-							$inobat=$_GET['input_obat'];
-						if($inobat=='on'){
-						?>
-						<button type="button" data-toggle="tab" class="btn btn-danger"  onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>'"><i class="icon-arrow-left icon-white"></i> Back</button>
-						<hr>
-					<div class="tab-pane active" id="tab4">
-					<div class="span2">
-					<?php
-					$query4=mysql_query("SELECT * FROM rekammedik, dokter WHERE rekammedik.nomorRm='$koderm' AND dokter.kodeDokter=rekammedik.kodedokter ORDER BY rekammedik.id_rm DESC");
-					$r=mysql_fetch_array($query4);
-					?>					
-		<div class="control-group">
-			<label class="control-label" for="inputEmail">Keluhan</label>
-			<div class="controls">
-				<textarea class="span12" disabled><?php echo $r['keluhan']; ?></textarea>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputEmail">Diagnosa</label>
-			<div class="controls">
-				<textarea class="span12" disabled><?php echo $r['diagnosa']; ?></textarea>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputEmail">Tindakan</label>
-			<div class="controls">
-				<textarea class="span12" disabled><?php echo $r['tindakan']; ?></textarea>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputEmail">Nama Dokter</label>
-			<div class="controls">
-				<input type="text" class="span12" value="<?php echo $r['nama_dokter']; ?>" disabled>
-			</div>
-		</div>
-	</div>
-</div>
-				<div class="span10 pull-right" id="inpt">
-				<div class="control-group pull-left">
-				<label class="control-label" for="inputEmail">Pilih Obat</label>									
-				<div class="controls pull-left">
-				<select name="t3" id="txtobat">
-				<option> Nama Obat</option>
-				<?php
-					$qtind=mysql_query("SELECT * FROM obat ORDER BY nama_obat ASC");
-					while($rtind=mysql_fetch_array($qtind)){								
-				?>
-				<option value="<?php echo $rtind['id_obat']; ?>"><?php echo $rtind['nama_obat']; ?></option>				
-				<?php
-					}
-				?>
-			</select>				
-			</div>
-			</div>		
-			<form method="post" action="mod_rm/aksi_inputob.php?module=tambah">
-			<input type="hidden" class="span3" value="<?php echo $koderm; ?>" name="t1">	
-			<input type="hidden" class="span10" value="<?php echo $rus['kodeUser']; ?>" name="t7">
-			<div id="hasils" class="pull-left span8"></div>			
-			</form>
-			</div>
-					<div class="span10">
-					<table class="table table-bordered table-striped">
+		<!--Data Racik Obat-->
+		<?php
+		if($inobat=='on'){
+		?>
+		<h4>Racik Obat</h4>
+		<hr>
+			<div class="tab-pane active" id="tab4">
+			<div class="span12">
+				<table class="table table-bordered table-striped">
 						<thead>
 						<tr>
-							<th>#</th>
-							<th align="center">Nomor RM</th>
+							<th>NO</th>
+							<th align="center">Nomor Rekam Medik</th>
+							<th align="center">Diagnosa</th>
 							<th align="center">Nama Obat</th>
-							<th align="center">Bentuk Obat</th>
-							
-							<th align="center">Ambil</th>
-							
-							<th align="center"></th>
+							<th align="center">Pemakaian</th>
+							<th align="center">QTY</th>
+							<th align="center">Harga</th>
+							<th align="center">Total Harga</th>
+							<th align="center">Bayar</th>
 						</tr>
 						</thead>
 						<tbody>
 						<?php
-						$qobt=mysql_query("SELECT * FROM tmp_obat, obat WHERE tmp_obat.kdrm='$koderm' AND obat.id_obat=tmp_obat.kdobat ORDER BY tmp_obat.id_temp DESC");
+						$qobt=mysql_query("SELECT detail_transaksi_obat.id_detail_transaksi, detail_transaksi_obat.id_transaksi,diagnosa.nama_diagnosa,obat.nama_obat,detail_transaksi_obat.pemakaian,detail_transaksi_obat.tgl_transaksi_detail, detail_transaksi_obat.qty,detail_transaksi_obat.harga,detail_transaksi_obat.jumlah FROM detail_transaksi_obat,obat,transaksi,diagnosa WHERE transaksi.id_transaksi='$koderm' AND detail_transaksi_obat.id_transaksi=transaksi.id_transaksi AND detail_transaksi_obat.id_obat=obat.id_obat AND transaksi.id_diagnosa=diagnosa.id_diagnosa ORDER BY detail_transaksi_obat.tgl_transaksi_detail DESC");
 						$no=1;
 						while($robt=mysql_fetch_array($qobt)){
 						
 						?>
 						<tr bgcolor="#fff">
-							<td><?php echo $no; ?></td>
-							<td><?php echo $robt['kdrm']; ?></td>
+							<td><?php echo $no; ?>.</td>
+							<td><?php echo $robt['id_transaksi']; ?></td>
+							<td><?php echo $robt['nama_diagnosa']; ?></td>
 							<td><?php echo $robt['nama_obat']; ?></td>
-							<td><?php echo $robt['bentuk']; ?></td>
-
-							
-							<td><?php echo $robt['ambil']; ?></td>
-							
-							<td><button class="btn btn-danger" onclick="window.location='mod_rm/aksi_inputob.php?module=delete&&idtemp=<?php echo $robt['id_temp']; ?>&&ambil=<?php echo $robt['ambil'] ?>&&idobat=<?php echo $robt['kdobat']; ?>'"><i class="icon-trash icon-white"></i></button></td>
+							<td><?php echo $robt['pemakaian']; ?></td>							
+							<td><?php echo $robt['qty']; ?></td>
+							<td><?php echo $robt['harga']; ?></td>
+							<td><?php echo $robt['jumlah']; ?></td>
+							<td><button class="btn btn-danger" onclick="window.location='mod_rm/cetak_racik.php?module=cetak&&idrc=<?php echo $robt['id_detail_transaksi']; ?>&&idrm=<?php echo $robt['id_transaksi'] ?>'"><i class="icon-trash icon-white"></i>Bayar</button></td>
 						</tr>
 						<?php
 						$no++;
 						}
 						?>
 						<tr>
-							<td colspan="4"></td>
-							<td colspan="2">Total Obat<b> 							
+							<td colspan="3"></td>
+							<td colspan="4">Total Obat<b> 							
 							<?php 
 							$jmlh=mysql_num_rows($qobt);
 							echo $jmlh;
 							?>
 							</b></td>
+							<td colspan="2">Total Transaksi : </td>	
 						</tr>
 						</tbody>
 					</table>
-					</div>
-						<?php
-						}
-						else{
-						?>
-						
-					<div class="tab-pane active" id="tab1">
-						<div class="control-group">
-							<div class="controls">								
-								<button class="btn btn-info" data-toggle="tab" href="#tab2"><i class="icon-chevron-right icon-white"></i> Input Keluhan</button>
-								<hr>
-							</div>
-						</div>
-						
-						<table class="table table-bordered table-striped">
-						<caption> Data Rekam Medik </caption>
-						<thead>
-						<tr>
-							<th>#</th>
-							<th align="center">Nomor RM</th>
-							<th align="center">Dokter</th>
-							<th align="center">Keluhan</th>
-							<th align="center">Diagnosa</th>
-							<th align="center">Obat</th>
-							<th align="center">Tindakan</th>
-							<th align="center">Tgl Berobat</th>
-						</tr>
-						</thead>
-						<tbody>
-						<?php
-						$qrm=mysql_query("SELECT * FROM rekammedik, dokter WHERE rekammedik.kodepasien='$kode' AND dokter.kodeDokter=rekammedik.kodedokter ORDER BY rekammedik.id_rm DESC");
-						$no=1;
-						while($rrm=mysql_fetch_array($qrm)){
-						
-						?>
-						<tr>
-							<td><?php echo $no; ?></td>
-							<td><?php echo $rrm['nomorRm']; ?></td>
-							<td><?php echo $rrm['nama_dokter']; ?></td>
-							<td><?php echo $rrm['keluhan']; ?></td>
-							<td>
-							<?php
-							$dig=$rrm['diagnosa'];
-							if($dig=='-'){
-								?>
-								<button type="button" data-toggle="tab" class="btn btn-warning"  onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>&&diagnosa=on&&koderm=<?php echo $rrm['nomorRm'] ?>'"><span class="fa fa-stethoscope"></span> Diagnosa Sekarang</button>
-								<?php
-							}
-							else{
-								echo $dig;
-							}
-							?>							
-							</td>
-							<td>
-                                <?php
-                                $qil=mysql_query("SELECT * FROM tmp_obat, rekammedik WHERE rekammedik.nomorRm=tmp_obat.kdrm");
-                                $num_obt=mysql_num_rows($qil);
-                                if($num_obt>=1){
-                                   ?>
-                                <button class="btn btn-warning" data-toggle="tab" href="#tab4" onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>&&input_obat=on&&koderm=<?php echo $rrm['nomorRm']; ?>'"><i class="icon-tint icon-white"></i> Obat Pasien</button>
-                            <?php 
-                                }
-                            else{
-                                ?>
-                                <button class="btn btn-success" data-toggle="tab" href="#tab4" onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>&&input_obat=on&&koderm=<?php echo $rrm['nomorRm']; ?>'"><i class="icon-tint icon-white"></i> Obat Pasien</button>
-                            <?php
-                            }
-                            ?>
-                            </td>
-							<td><?php 
-                            $tin=$rrm['tindakan'];
-                            $querytin=mysql_query("SELECT * FROM tindakan WHERE id_tindakan='$tin'");
-                            $rti=mysql_fetch_array($querytin);
-                            echo $rti['nm_tindakan'];
-                            ?></td>
-							<td><?php echo tgl_indo($rrm['tgl']); ?></td>
-						</tr>
-						<?php
-						$no++;
-						}
-						?>
-						
-						</tbody>
-					</table>
-					
-					</div>	
-                
-                
-					
-					
-<?php
-	}
-}
-$qrm=mysql_query("SELECT * FROM rekammedik, dokter, pasien_tanggungan, pasien WHERE pasien_tanggungan.kodepasien=pasien.kodePasien AND pasien.kodePasien='$kode' AND rekammedik.kodepasien=pasien_tanggungan.kode_tang AND dokter.kodeDokter=rekammedik.kodedokter ORDER BY rekammedik.id_rm DESC");
-?>
-	
-						<div class="tab-pane" id="tab6">
-						<button type="button" data-toggle="tab" class="btn btn-danger"  onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>'"><i class="icon-chevron-left icon-white"></i> Back</button>
-						<hr>
-						<form method="post" action="<?php echo $aksi."?module=tambah_tang" ?>">
-							<div class="span6">
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Pilih Tanggungan :</label>
-									<div class="controls">
-										<select name="t2">
-											<option selected disabled>Pilih Tanggungan :</option>
-											<?php
-												$quetang=mysql_query("SELECT * FROM pasien_tanggungan WHERE kodepasien='$kode'");
-												while($rtang=mysql_fetch_array($quetang)){
-											?>
-												<option value="<?php echo $rtang['kode_tang']; ?>"><?php echo $rtang['nama_tang']; ?></option>
-											<?php
-											}
-											?>									
-										</select>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Nomor Rekam Medik</label>
-									<div class="controls">
-									<input type="text" class="span8" value="<?php echo $nounik ?>" disabled>
-									<input type="hidden" class="span8" value="<?php echo $nounik ?>" name="t1">
-									
-									<input type="hidden" class="span8" value="<?php echo $rus['kodeUser'] ?>" name="t8">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Masukkan Keluhan :</label>
-									<div class="controls">
-									<textarea class="span8" name="t4"></textarea>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Dokter Yang Menangani</label>
-									<div class="controls">
-									<select name="" id="txtdok" class="span8">
-										<option disabled selected>Pilih Dokter</option>
-										<?php
-										$querdok=mysql_query("SELECT * FROM dokter");
-										while($rdok=mysql_fetch_array($querdok)){
-										?>
-										<option value="<?php echo $rdok['kodeDokter']; ?>"><?php echo $rdok['nama_dokter']; ?></option>
-										<?php
-										}
-										?>
-									</select>
-									</div>																
-								</div>																
-								<div class="control-group">
-									<div class="controls">								
-									<button class="btn btn-danger" data-toggle="tab" href="#tab1"><i class="icon-arrow-left icon-white"></i> Back</button>
-									<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-									</div>
-								</div>
-							</div>							
-							<div class="span4">								
-								<div id="tampil"></div>
-								
-							</div>	
-						</form>							
-						</div>		
-						
-						
-						<div class="tab-pane" id="racikObt">
-				    <div class="control-group">
-                        <h4>Racik Obat</h4>
-                        <button class="btn btn-info" data-toggle="tab" href="#addRacik"><i class="icon-chevron-right icon-white"></i> Tambah Racik Obat</button>
-                        <table class="table table-bordered table-striped">
-						<caption> Data Racik Obat </caption>
-						<thead>
-						<tr>
-							<th>#</th>
-                            <th align="center">Kode Resep</th>
-							<th align="center">Nama Obat</th>
-							<th align="center">Racikkan</th>
-							<th align="center">Aturan Pakai</th>
-							<th align="center">Harga</th>
-							<th align="center">Pengambil Obat</th>
-							<th align="center">Petugas Apotek</th>
-							<th align="center">Dokter</th>
-							<th align="center">Tanggal</th>
-                            <th></th>
-						</tr>
-						</thead>
-						<tbody>
-                    <?php
-                        $query=mysql_query("SELECT * FROM racik_obat WHERE kodePasien='$kode' ORDER BY id_racik DESC");
-                        $no=1;
-                        while($r=mysql_fetch_array($query)){
-                    ?>
-                        <tr>
-                            <td><?php echo $no; ?></td>    
-                            <td><pre><?php echo $r['kode_resep']; ?></pre></td>    
-                            <td><pre><?php echo $r['nama_obat']; ?></pre></td>    
-                            <td><pre><?php echo $r['racik']; ?></pre></td>    
-                            <td><pre><?php echo $r['aturan_pakai']; ?></pre></td>    
-                            <td><?php echo $r['harga']; ?></td>    
-                            <td><?php echo $r['pengambil_obat']; ?></td>    
-                            <td><?php echo $r['petugas_apotek']; ?></td>    
-                            <td><?php
-                            $do=$r['id_dokter'];
-                            $qd=mysql_query("SELECT * FROM dokter WHERE kodeDokter='$do'");
-                            $rdk=mysql_fetch_array($qd);
-                            echo $rdk['nama_dokter'];
-                            ?></td>  
-                            <td><?php echo tgl_indo($r['tgl_racik']); ?></td>  
-                            <td><button class="btn btn-success" onclick="window.location='mod_rm/f_racik.php?kode_pasien=<?php echo $kode; ?>&&kode_resep=<?php echo $r['kode_resep']; ?>&&status=<?php echo $status; ?>'"><i class="fa fa-print"></i></button>
-                            <button class="btn btn-danger" onclick="window.location='mod_rm/aksi_rm.php?module=hapus_racik&&id_racik=<?php echo $r['id_racik']; ?>&&kode=<?php echo $kode; ?>&&status=pasien'"><i class="icon-trash icon-white"></i></button></td>
-                        </tr>
-                    <?php
-                            $no++;
-                        }
-                    ?>
-                        </tbody>
-                        </table>
-                    </div>
+		<!--Form Racik Obat-->			
+		<!--Racik Obat-->
+			<div class="tab-pane" id="addRacik">
+				<h3>Tambah Obat Racik</h3>
+				<form method="post" action="<?php echo $aksi."?module=tambahracik" ?>">
+				<input type="hidden" id="inputText" name="kode" value="<?php echo $kode; ?>" class="span4">
+				<input type="hidden" id="inputText" name="status" value="<?php echo $status ?>" class="span4">
+				<div class="span12">
+				<div class="control-group">
+				<label class="control-label" for="inputPassword">Kode Resep</label>
+				<div class="controls">
+					<input type="text" class="span5" name="kode_resep" value="<?php echo $koderm.'#'.$banyak; ?>" readonly="" required="">
 				</div>
-                <div class="tab-pane" id="addRacik">
-                    <h3>Tambah Obat Racik</h3>
-                    <form method="post" action="<?php echo $aksi."?module=tambahracik" ?>">
-                    <input type="hidden" id="inputText" name="kode" value="<?php echo $kode; ?>" class="span4">
-                    <input type="hidden" id="inputText" name="status" value="<?php echo $status ?>" class="span4">
-                        <div class="control-group">
-						<label class="control-label" for="inputPassword">Kode Resep</label>
-						<div class="controls">
-                            <input type="text" class="span4" name="kode_resep" value="<?php echo $kode; ?>-001">
-						  
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Nama Obat</label>
-						<div class="controls">
-						  <textarea class="span4" name="t1"></textarea>
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Racikan</label>
-						<div class="controls">
-						  <textarea class="span4" name="t2"></textarea>
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Aturan Pemakaian</label>
-						<div class="controls">
-						  <textarea class="span4" name="t3"></textarea>
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Harga</label>
-						<div class="controls">
-						  <input type="text" id="inputText" name="t4" class="span4">
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Pengambil Obat</label>
-						<div class="controls">
-						  
-						  <input type="text" id="inputText" name="t5" class="span4">
-					   </div>
-				    </div>
-                    <div class="control-group">
-						<label class="control-label" for="inputPassword">Petugas Apotek</label>
-						<div class="controls">
-						  <input type="text" id="inputText" name="t6" class="span4">
-					   </div>
-				    </div>
-                        <div class="control-group">
-						<label class="control-label" for="inputPassword">Dokter</label>
-						<div class="controls">
-				            <select name="t7">
-                                <option selected disabled>Pilih Dokter</option>
-                                <?php
-                                    $qdok=mysql_query("SELECT * FROM dokter");
-                                    while($rd=mysql_fetch_array($qdok)){
-                                ?>
-                                <option value="<?php echo $rd['kodeDokter'] ?>"><?php echo $rd['nama_dokter'] ?></option>
-                                <?php
-                                    }
-                                ?>
-                            </select>
-					   </div>
-				    </div>
-                        <hr>
-                        <button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-                    </form>
-                </div>
-						<div class="tab-pane" id="tab2">
-						<hr>
-						<form method="post" action="<?php echo $aksi."?module=tambahrm" ?>">
-							<div class="span6">
-							
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Nomor Rekam Medik</label>
-									<div class="controls">
-									<input type="text" class="span8" value="<?php echo $nounik ?>" disabled>
-									<input type="hidden" class="span8" value="<?php echo $nounik ?>" name="t1">
-									<input type="hidden" class="span8" value="<?php echo $kode ?>" name="t2">
-									<input type="hidden" class="span8" value="<?php echo $rus['kodeUser'] ?>" name="t8">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Masukkan Keluhan</label>
-									<div class="controls">
-									<textarea class="span8" name="t4"></textarea>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="inputEmail">Dokter Yang Menangani</label>
-									<div class="controls">
-									<select name="t3" id="txtdok" class="span8">
-										<option disabled selected>Pilih Dokter</option>
-										<?php
-										$querdok=mysql_query("SELECT * FROM dokter");
-										while($rdok=mysql_fetch_array($querdok)){
-										?>
-										<option value="<?php echo $rdok['kodeDokter']; ?>"><?php echo $rdok['nama_dokter']; ?></option>
-										<?php
-										}
-										?>
-									</select>
-									</div>																
-								</div>																
-								<div class="control-group">
-									<div class="controls">								
-									<button class="btn btn-danger" data-toggle="tab" href="#tab1"><i class="icon-arrow-left icon-white"></i> Back</button>
-									<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-									</div>
-								</div>
-							</div>							
-							<div class="span4">								
-								<div id="tampil"></div>
-								
-							</div>	
-						</form>							
-						</div>					
-					
-						
-					  </div>
-					</div> <!-- /tabbable -->	
-					<?php
-					}else{
-					?>                
-					<div id="hasil"></div>	
-                <?php } ?>
+				</div>
+				<div class="control-group">
+					<label for="obat" class="control-label">Nama Obat</label>
+					<div class="controls">
+						<input type="text" class="span5" id="obat" name="obat" value="">
+						<input type="hidden" id="id_obt" name="id_obt" value="">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">Aturan Pemakaian</label>
+					<div class="controls">
+						<textarea class="span5" name="pemakaian"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">ID Transaksi</label>
+					<div class="controls">
+						<input type="hidden" id="idTrs" name="idTrs" class="span5" value="<?=$_GET['koderm']?>">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">Tanggal Transaksi</label>
+					<div class="controls">
+						<input type="date" id="tgl_td" name="tgl_td" class="span5" value="<?=$tgl_skrg?>">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">Harga</label>
+					<div class="controls">
+						<input type="number" id="harga" name="harga" class="span5" value="" readonly="" onchange="total()">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">QTY</label>
+					<div class="controls">
+						<input type="number" id="qty" name="qty" class="span5" min="1" onkeyup="total();">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">Jumlah</label>
+					<div class="controls">
+						<input type="number" id="jumlah" name="jumlah" class="span5" value="0" readonly>
+					</div>
+				</div>
+					<hr>
+					<button class="btn btn-danger" data-toggle="tab" href="#racikObt"><i class="icon-arrow-left icon-white"></i> Back</button>
+					<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+				</form>
+				</div>
 			</div>
+			</div> <!-- /tabbable -->
+			<!-- End Racik Obat  -->
+		<?php
+		}
+		else{
+		?>
+		<!--End Data Rekam Medik-->
+
+		<!-- Data Rekam Medik  -->
+		<div class="tab-pane active" id="tab1">
+			<div class="control-group">
+				<div class="controls">
+					<button class="btn btn-info" data-toggle="tab" href="#tab2"><i class="icon-chevron-right icon-white"></i> Input Rekam Medik</button>
+					<hr>
+				</div>
+			</div>
+			<?php
+			$p      = new Paging;
+			$batas  = 10;
+			$posisi = $p->cariPosisi($batas);
+			?>
+			<table class="table table-bordered table-hover table-striped">
+			<caption> Data Rekam Medik <?=$error?> </caption>
+			<thead>
+			<tr>
+				<th align="center">No. Rekam Medik</th>
+				<th align="center">Tanggal Berobat</th>
+				<th align="center">Anamesa</th>
+				<th align="center">Diagnosa</th>
+				<th align="center">Obat</th>
+				<th align="center" colspan="2">Aksi</th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php
+			$qrm=mysql_query("SELECT transaksi.id_transaksi,transaksi.anamesa,transaksi.tanggal_transaksi,diagnosa.nama_diagnosa FROM transaksi, pasien, diagnosa WHERE pasien.no_rm='$kode' AND transaksi.no_rm=pasien.no_rm AND transaksi.id_diagnosa=diagnosa.id_diagnosa ORDER BY transaksi.tanggal_transaksi DESC LIMIT $posisi,$batas");
+			$no=$posisi+1;
+			while($rrm=mysql_fetch_array($qrm)){
+				$tgl=$rrm['tgl_lahir'];
+				$ambil_thn=substr($tgl,0,4);
+				$thn_sekarang=date('Y');
+				$umur=$thn_sekarang-$ambil_thn;
+			?>
+			<tr>
+				<td><?php echo $rrm['id_transaksi']; ?></td>
+				<td><?php echo $rrm['tanggal_transaksi']; ?></td>
+				<td><?php echo $rrm['anamesa']; ?></td>
+				<td><?php echo $rrm['nama_diagnosa']; ?></td>
+				<td>
+					<?php
+					$no=1;
+					$obate = mysql_query("SELECT transaksi.no_rm,detail_transaksi_obat.id_transaksi, obat.nama_obat FROM detail_transaksi_obat,obat,transaksi,pasien WHERE pasien.no_rm='$kode' AND transaksi.no_rm=pasien.no_rm  AND transaksi.id_transaksi='$rrm[id_transaksi]' AND detail_transaksi_obat.id_transaksi=transaksi.id_transaksi AND detail_transaksi_obat.id_obat=obat.id_obat ORDER BY obat.nama_obat DESC");
+					?>
+					<a href="#" class="btn btn-obat" data-toggle="popover" data-placement="bottom" data-content="
+					<?php while ($kie = mysql_fetch_array($obate)) {
+						echo $no.'. '.$kie['nama_obat'].' ';
+					$no++;
+					}
+					?>
+					" title="" data-original-title="List Obat">Lihat Obat</a>
+				</td>
+				<td>
+					<button class="btn btn-success btnTrs" data-toggle="tab" href="#tab4" onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>&&input_obat=on&&koderm=<?php echo $rrm['id_transaksi']; ?>'"><i class="icon-tint icon-white"></i> Obat Pasien</button>
+				</td>
+				<td>	
+					<button class="btn btn-info" data-toggle="tab" href="#tab3" onclick="window.location='media.php?module=rekam_medik&&status=<?php echo $status; ?>&&kodepasien=<?php echo $kode; ?>&&editrm=on&&koderm=<?php echo $rrm['id_transaksi']; ?>'"><i class="icon-chevron-right icon-white"></i> Edit Rekam Medik</button>
+				</td>
+			</tr>
+			<?php
+			$no++;
+			}
+			$totrm = mysql_num_rows($qrm);
+			?>
+			<tr>
+				<td colspan="5">
+				<?php
+				$jmldata=$totrm;
+				$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
+				$linkHalaman = $p->navHalaman($_GET['halaman'], $jmlhalaman); 
+				echo "$linkHalaman";
+				?><td colspan="2">Jumlah Record <?php echo $jmldata; ?></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>	
+		<!-- End Data Rekam Medik  -->								
+			
+			<div class="tab-pane" id="tab2">
+			<hr>
+			<!-- Diagnosa Rekam Medik  -->
+			<h4>Input Rekam Medik</h4>
+			<form method="post" action="<?php echo $aksi."?module=tambahrm" ?>">
+				<div class="span6">
+				
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Nomor Rekam Medik</label>
+						<div class="controls">
+						<input type="text" class="span8" value="<?php echo $nounik ?>" readonly name="nounik" required="">
+						<input type="hidden" class="span8" value="<?php echo $_GET['kodepasien'] ?>" name="norm">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Tanggal :</label>
+						<div class="controls">
+						<input type="date" class="span8" value="<?php echo $tgl_skrg;?>" name="tgl_trs" required="">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Masukkan Anamnesa</label>
+						<div class="controls">
+						<textarea class="span8" name="anamnesa" required=""></textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="dgns" class="control-label">Diagnosa</label>
+						<div class="controls">
+							<input type="text" class="span8" id="diagnosa" name="diagnosa" value="" required="">
+							<input type="hidden" class="span8" id="id_dgs" name="id_dgs" value="">
+						</div>
+					</div>															
+					<div class="control-group">
+						<div class="controls span12 offset4">
+						<button class="btn btn-danger" data-toggle="tab" href="#tab1"><i class="icon-arrow-left icon-white"></i> Back</button>
+						<button type="submit" name="simpan-trs" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+						</div>
+					</div>
+				</div>					
+				<div class="span4">								
+				<div id="tampil"></div>
+				</div>	
+				</form>							
+				</div>					
+				<!-- End Diagnosa Rekam Medik  -->		
+
+			<!--Edit Rekam medik-->
+			<div class="tab-pane" id="tab3">
+			<hr>
+			<h4>Edit Rekam Medik</h4>
+			<form method="post" action="<?php echo $aksi."?module=editrm" ?>">
+				<div class="span6">
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Nomor Rekam Medik</label>
+						<div class="controls">
+						<input type="text" class="span8" value="<?php echo $nounik ?>" readonly name="nounik" required="">
+						<input type="hidden" class="span8" value="<?php echo $_GET['kodepasien'] ?>" name="norm">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Tanggal :</label>
+						<div class="controls">
+						<input type="date" class="span8" value="<?php echo $tgl_skrg;?>" name="tgl_trs" required="">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Masukkan Anamnesa</label>
+						<div class="controls">
+						<textarea class="span8" name="anamnesa" required=""></textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="dgns" class="control-label">Diagnosa</label>
+						<div class="controls">
+							<input type="text" class="span8" id="diagnosa" name="diagnosa" value="" required="">
+							<input type="hidden" class="span8" id="id_dgs" name="id_dgs" value="">
+						</div>
+					</div>															
+					<div class="control-group">
+						<div class="controls span12 offset4">
+						<button class="btn btn-danger" data-toggle="tab" href="#tab1"><i class="icon-arrow-left icon-white"></i> Back</button>
+						<button type="submit" name="simpan-trs" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+						</div>
+					</div>
+				</div>					
+				<div class="span4">								
+				<div id="tampil"></div>
+				</div>	
+				</form>							
+				</div>					
+				<!--end edit rekam medik-->
+		<?php 
+		}
+		?>				
+				</div>	
+		<?php
+		}
+		else{
+		?>		
+		<div id="hasil"></div>	
+		<?php
+		}
+		?>
 		</div>
+	</div>
 	</section>
 <?php
-	break;
+break;
 }
 ?>

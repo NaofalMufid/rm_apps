@@ -22,7 +22,7 @@ return $jmlhalaman;
 // Fungsi untuk link halaman 1,2,3 (untuk admin)
 function navHalaman($halaman_aktif, $jmlhalaman){
 $link_halaman = "";
-echo "<div class='pagination'>
+echo "<div class='pagination pagination-smaller'>
 			<ul>";
 // Link ke halaman pertama (first) dan sebelumnya (prev)
 if($halaman_aktif > 1){

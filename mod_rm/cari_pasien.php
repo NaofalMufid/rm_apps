@@ -3,10 +3,13 @@ include ("../config/koneksi.php");
 $kode=$_POST['q'];
 $query=mysql_query("SELECT * FROM pasien WHERE no_rm = ".$kode." ");
 $r=mysql_fetch_array($query);
-$status="pasien";
-?>
+$num=mysql_num_rows($query);
+if($num>=1){
+    $status="pasien";
+    ?>
     <div class="rm_info">
-			<h3>Data Pasien</h3>	
+                            
+        <div>
 			<div class="control-group ">
 				<label class="control-label" for="inputText">No. Rekam Medis</label>
 				<div class="controls">
@@ -43,4 +46,8 @@ $status="pasien";
 				<button type="button" class="btn btn-success" onclick="window.location='media.php?module=rekam_medik&&status=pasien&&kodepasien=<?php echo $r['no_rm'] ?>'"><i class="icon-ok-circle icon-white"></i> Proses</button>
 				</div>
 			</div>
-			</div>
+		</div>
+    <?php
+}
+?>
+                        

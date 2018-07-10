@@ -1,172 +1,59 @@
 <?php
-	include ("../config/koneksi.php");
-	include ("../config/fungsi_indotgl.php");
-    $kode=$_GET['kode_pasien'];
-    $kode_resep=$_GET['kode_resep'];
-	?>
+    include ("../config/koneksi.php");
+    include ("../config/fungsi_indotgl.php");
+    $rc=$_GET['idrc'];
+    $rm=$_GET['idrm'];
+    ?>
 <!doctype html>
 <html>
-	<head>
-		<title>Racik Obat</title>
-		<link rel="shortcut icon" href="../img/laporan.png">
-		<link rel="stylesheet" type="text/css" href="../css/obtracik.css">
-	</head>
-	<body>
-		<div class="page">
-		<div class="kop">
-			
-            <h6>
-            
-            </h6>
-		</div>
-		
-            <div class="batas"></div>
-            <?php
-			$query=mysql_query("SELECT * FROM racik_obat WHERE kode_resep='$kode_resep' ORDER BY id_racik DESC");
-            $r=mysql_fetch_array($query);
-		?>
-		
-            <table border="0px">
+    <head>
+        <title>Racik Obat</title>
+        <link rel="shortcut icon" href="../img/laporan.png">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="span6 offset2">
+            <br>
+        <div class="batas"></div>
+        <?php
+        $query=mysql_query("SELECT detail_transaksi_obat.id_detail_transaksi,detail_transaksi_obat.id_transaksi,pasien.no_rm,pasien.nama_pasien,diagnosa.nama_diagnosa,obat.nama_obat,detail_transaksi_obat.pemakaian,detail_transaksi_obat.tgl_transaksi_detail, detail_transaksi_obat.qty,detail_transaksi_obat.harga,detail_transaksi_obat.jumlah FROM detail_transaksi_obat,obat,transaksi,diagnosa,pasien WHERE detail_transaksi_obat.id_detail_transaksi='$rc' AND transaksi.id_transaksi='$rm' AND detail_transaksi_obat.id_transaksi=transaksi.id_transaksi AND transaksi.no_rm=pasien.no_rm AND detail_transaksi_obat.id_obat=obat.id_obat AND transaksi.id_diagnosa=diagnosa.id_diagnosa");
+        $r=mysql_fetch_array($query);
+        ?>
+        <table class="table table-bordered table-striped">
                 <tr>
-                    <td><table class="table">
-			<tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td><?php
-                    $kode_pas=$r['kodepasien'];
-                    $querypas=mysql_query("SELECT * FROM pasien, pegawai WHERE pegawai.id_pegawai=pasien.id_pegawai AND pasien.kodePasien='$kode'");
-                    $rpas=mysql_fetch_array($querypas);
-                    echo $rpas['nama_pegawai'];
-                    ?></td>
-            </tr>
-            <tr>
-                <td>Umur</td>
-                <td>:</td>
-                <td><?php
-                            
-                         
-                            $tgl=$rpas['tgl_lhr'];
-                            $ambil_thn=substr($tgl,0,4);
-                            $thn_sekarang=date('Y');
-                            $umur=$thn_sekarang-$ambil_thn;
-                            echo $umur." Tahun";
-                            ?></td>
-            </tr>
-            <tr>
-                <td>Jenis Kelamin</td>
-                <td>:</td>
-                <td><?php echo $rpas['jk']; ?></td>
-            </tr>
-            <tr>
-                <td>Nama Karyawan</td>
-                <td>:</td>
-                <td><?php echo $rpas['nama_pegawai'] ?></td>
-            </tr>
-            <tr>
-                <td>Unik Kerja</td>
-                <td>:</td>
-                <td><?php echo $rpas['unit']; ?></td>
-            </tr>
-            
-					
-		</table></td>
-                    <td><table class="table tbl2" border="1px">
-			<tr>
-                <td>No. Transkasi</td>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>Tgl. Transaksi</td>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>No. Kartu</td>
-                <td>:</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>NIP</td>
-                <td>:</td>
-                <td><?php echo $rpas['nip']; ?></td>
-            </tr>
-            <tr>
-                <td>Dokter</td>
-                <td>:</td>
-                <td><?php 
-                    $dok=$r['id_dokter'];
-                    $qudok=mysql_query("SELECT * FROM dokter WHERE kodeDokter='$dok'");
-                    $rdok=mysql_fetch_array($qudok);
-                    echo $rdok['nama_dokter'];
-                    ?></td>
-            </tr>
-					
-		</table></td>
+                    <th colspan="2">Racikan Obat</th>
                 </tr>
-            </table>
-            
-            <table class="table" style="margin-top:20px;">
                 <tr>
-                    <td style='width:20px;'>No.</td>    
-                    <td style='width:150px;'>Nama Obat</td>    
-                    <td style='width:180px;'>Racik No.Racik Jumlah</td>    
-                    <td style='width:100px;'>Aturan Pakai</td>    
-                    <td style='width:110px;'>Harga</td>    
+                    <th>No. Transaksi</th>
+                    <td><?=$r['id_detail_transaksi']?></td>
                 </tr>
-                <?php
-                $no=1;
-                $queL=mysql_query("SELECT * FROM racik_obat, pasien WHERE kode_resep='$kode_resep' AND racik_obat.kodepasien='$kode' GROUP BY racik_obat.nama_obat ORDER BY id_racik DESC");
-                while($rc=mysql_fetch_array($queL)){
-                ?>
                 <tr>
-                    <td><?php echo $no; ?></td>    
-                    <td><?php echo $rc['nama_obat'] ?></td>    
-                    <td><?php echo $rc['racik'] ?></td>    
-                    <td><?php echo $rc['aturan_pakai'] ?></td>    
-                    <td><?php echo $rc['harga'] ?></td>    
+                    <th>Pasien</th>
+                    <td><?=$r['nama_pasien']?></td>
                 </tr>
-                <?php
-                    $no++;
-                    }
-                ?>
-                
-            </table>
-            
-            <table class="ttd">
+                <tr>    
+                    <th>Diagnosa</th>
+                    <td><?=$r['nama_diagnosa']?></td>
+                </tr>
+                <tr>    
+                    <th>Obat</th>
+                    <td><?=$r['nama_obat']?></td>
+                </tr>
                 <tr>
-                    <td style="width:200px;">Pemngambil Obat
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <?php echo $r['pengambil_obat']; ?>
-                    </td>
-                    
-                    <td style="width:200px;">Petugas Apotek
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <?php echo $r['pengambil_obat']; ?>
-                    </td>
-                    
-                    <td style="width:200px;">Dokter
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <?php echo $rdok['nama_dokter']; ?>
-                    </td>
+                    <th>QTY</th>
+                    <td><?=$r['qty']?></td>
                 </tr>
-                
-            </table>
-		</div>
-	</body>
+                <tr>    
+                    <th>Harga</th>
+                    <td><?=$r['harga']?></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Total Bayar : <?=$r['jumlah']?></th>
+                </tr>                
+        </table>
+        </div>
+        <script type="text/javascript">
+            window.print();
+        </script>
+    </body>
 </html>

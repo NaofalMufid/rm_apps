@@ -31,7 +31,7 @@ switch($_GET['act']){
 		  });
 			});
 	</script>
-	<?php
+<?php
 	$p      = new Paging;
     $batas  = 10;
     $posisi = $p->cariPosisi($batas);
@@ -50,31 +50,29 @@ switch($_GET['act']){
 				<legend class="span9">Tambah Diagnosa</legend>
 				<div class="clear"></div>
 				<div class="span8">
-				
-							<div class="control-group">
-								<label class="control-label" for="inputPassword"> Nama Diagnosa</label>
-								<div class="controls">
-									<input type="text" name="nadia" class="span11">
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="inputPassword"> Keterangan</label>
-								<div class="controls">
-									<textarea name="ket" class="span11"></textarea>
-								</div>
-							</div>
-							<hr>
-							<div class="control-group">
-								<div class="controls">								
-								<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
-								<button type="reset" class="btn btn-warning"><i class="icon-refresh icon-white"></i> Reset</button>
-								</div>
-							</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPassword"> Nama Diagnosa</label>
+						<div class="controls">
+							<input type="text" name="nadia" class="span11" required="">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="inputPassword"> Keterangan</label>
+						<div class="controls">
+							<textarea name="ket" class="span11" required=""></textarea>
+						</div>
+					</div>
+					<hr>
+					<div class="control-group">
+						<div class="controls">								
+						<button type="submit" class="btn btn-success"><i class="icon-ok-circle icon-white"></i> Simpan</button>
+						<button type="reset" class="btn btn-warning"><i class="icon-refresh icon-white"></i> Reset</button>
+						</div>
+					</div>
 				</div>
-				
-							</fieldset>
-						</form>	
+				</fieldset>
+			</form>	
 			</div>
 		</div>
 		</div>
@@ -89,31 +87,40 @@ switch($_GET['act']){
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr class="head3">
-							<th>No</th><th>Nama Diagnosa</th><th>Keterangan</th><th></th>
+							<th>No</th>
+							<th>Nama Diagnosa</th>
+							<th>Keterangan</th>
+							<th>Opsi</th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
 					
-					$query=mysql_query("SELECT * FROM diagnosa");
-					$no=1;					
+					$query=mysql_query("SELECT * FROM diagnosa ORDER BY nama_diagnosa ASC LIMIT $posisi,$batas");
+					$no=$posisi+1;					
 					while($r=mysql_fetch_array($query)){
 					?>					
 						<tr>
-							<td><?php echo $no; ?></td>
-							<td><?php echo $r['nama_diagnosa']."<br>"; 
-                            $id_diagnosa=$r['id_diagnosa'];
-                            ?></td>
+							<td><?php echo $no; ?>.</td>
+							<td><?php echo $r['nama_diagnosa']."<br>";?></td>
                             <td><?php echo $r['keterangan'];?></td>
                             <td>
 								<a href="media.php?module=diagnosa&&act=edit&&id_diagnosa=<?php echo $r['id_diagnosa']; ?>" class="btn btn-info"><i class="icon-pencil"></i> Edit</a>
 							</td>
-						</tr>
-					
+						</tr>		
 					<?php
 					$no++;
 					}
-					?>					
+					?>
+					<tr>
+							<td colspan="3">
+							<?php
+							$jmldata=mysql_num_rows(mysql_query("SELECT * FROM diagnosa"));
+							$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
+							$linkHalaman = $p->navHalaman($_GET['halaman'], $jmlhalaman); 
+							echo "$linkHalaman";
+							?><td>Jumlah Record <?php echo $jmldata; ?></td>
+						</tr>
 					</tbody>
 				</table>
 				</fieldset>
@@ -129,6 +136,9 @@ case "edit":
 $id_diagnosa=$_GET['id_diagnosa'];
 $query=mysql_query("SELECT * FROM diagnosa WHERE id_diagnosa='$id_diagnosa'");
 $r=mysql_fetch_array($query);
+$p      = new Paging;
+$batas  = 10;
+$posisi = $p->cariPosisi($batas);
 ?>
 	<section>
 		<ul class="breadcrumb" style="margin-bottom: 5px;">
@@ -147,7 +157,7 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword"> Nama diagnosa</label>
 								<div class="controls">
-									<input type="text" name="nadia" class="span11" value="<?php echo $r['nama_diagnosa']; ?>">
+									<input type="text" name="nadia" class="span11" required="" value="<?php echo $r['nama_diagnosa']; ?>">
 									<input type="hidden" name="id_diagnosa" class="span11" value="<?php echo $r['id_diagnosa']; ?>">
 								</div>
 							</div>
@@ -155,7 +165,7 @@ $r=mysql_fetch_array($query);
 							<div class="control-group">
 								<label class="control-label" for="inputPassword"> Keterangan</label>
 								<div class="controls">
-									<textarea name="ket" class="span11"><?php echo $r['keterangan']; ?></textarea>
+									<textarea name="ket" class="span11" required=""><?php echo $r['keterangan']; ?></textarea>
 								</div>
 							</div>
 							<hr>
@@ -166,9 +176,7 @@ $r=mysql_fetch_array($query);
 								</div>
 							</div>
 				</div>
-				
-							
-						</form>	
+			</form>	
 			</div>
 		</div>
 		</div>
@@ -182,31 +190,38 @@ $r=mysql_fetch_array($query);
 				<table class="table table-striped">
 					<thead>
 						<tr class="head3">
-							<td>No</td><td>Nama diagnosa</td><td>Keterangan</td><td></td>
+							<td>No</td>
+							<td>Nama diagnosa</td>
+							<td>Keterangan</td>
+							<td>Opsi</td>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
-					
-					$query=mysql_query("SELECT * FROM diagnosa");
-					$no=1;					
+					$query=mysql_query("SELECT * FROM diagnosa ORDER BY nama_diagnosa ASC LIMIT $posisi,$batas");
+					$no=$posisi+1;
 					while($r=mysql_fetch_array($query)){
 					?>					
 						<tr>
-							<td><?php echo $no; ?></td><td><?php echo $r['nama_diagnosa']; ?></td><td><?php echo $r['keterangan']; ?></td><td><div class="btn-group">
-								<a class="btn btn-danger" href="#"><i class="icon-wrench icon-white"></i> Actions</a>
-								<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="media.php?module=diagnosa&&act=edit&&id_diagnosa=<?php echo $r['id_diagnosa']; ?>"><i class="icon-pencil"></i> Edit</a></li>
-									<li><a href="<?php echo "$aksi?module=hapus&&id_diagnosa=$r[id_diagnosa]";?>" onclick="return confirm('Apakah anda yakin, ingin menghapus tarif dokter <?php echo $r['nama_dokter']; ?>?')"><i class="icon-trash"></i> Delete</a></li>									
-								</ul>
-							</div></td>
+							<td><?php echo $no; ?></td>
+							<td><?php echo $r['nama_diagnosa']; ?></td>
+							<td><?php echo $r['keterangan']; ?></td>
+							<td>
+								<a href="media.php?module=diagnosa&&act=edit&&id_diagnosa=<?php echo $r['id_diagnosa']; ?>" class="btn btn-info"><i class="icon icon-pencil"></i> Edit</a></td>
 						</tr>
-					
 					<?php
 					$no++;
 					}
-					?>					
+					?>
+					<tr>
+						<td colspan="3">
+						<?php
+						$jmldata=mysql_num_rows(mysql_query("SELECT * FROM diagnosa"));
+						$jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
+						$linkHalaman = $p->navHalaman($_GET['halaman'], $jmlhalaman); 
+						echo "$linkHalaman";
+						?><td>Jumlah Record <?php echo $jmldata; ?></td>
+					</tr>
 					</tbody>
 				</table>
 				</fieldset>

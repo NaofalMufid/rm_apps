@@ -1,169 +1,63 @@
 <?php
-	include ("../config/koneksi.php");
-	include ("../config/fungsi_indotgl.php");
-	include ("../config/fungsi_minggu.php");
-    $tgl1=$_GET['tgl1'];
-			$tgl2=$_GET['tgl2'];
-	?>
+include ("../config/koneksi.php");
+include ("../config/fungsi_indotgl.php");
+$tgl1=$_GET['tgl1'];
+$tgl2=$_GET['tgl2'];
+?>
 <!doctype html>
 <html>
-	<head>
-		<title>Laporan Obat</title>
-		<link rel="shortcut icon" href="../img/laporan.png">
-		<link rel="stylesheet" type="text/css" href="../css/laporan.css">
-	</head>
-	<body>
-		<div class="page">
-		<div class="kop">
-            <img src="../img/kop.png" id="kop">
-            <div class="header">
-			<h2>SYSTEM APLIKASI REKAM MEDIS DI INSTANSI</h2>
-            <h6><?php
-                if($tgl1=='' AND $tgl2==''){
-                    
-                }
-                else{
-                    echo tgl_indo($tgl1)." s/d ".tgl_indo($tgl2);
-                }
-                ?>
-            
-            </h6>
-                </div>
-		</div>
-		
-            <div class="batas"></div>
-            <?php
-			
-			if($tgl1=='' AND $tgl2==''){
-		?>
-		<table class="table" border="1px">
-			<tr class="head">
-				<td width="10">NO. </td><td width="290">NAMA OBAT</td><td width="80">OBAT KELUAR </td><td width="80">OBAT SEKARANG</td><td width="80">TOTAL</td>
-			</tr>
-			
-			<?php										
-					$query=mysql_query("SELECT * FROM obat ORDER BY jmlh_obat DESC");
-					$no=1;
-					while($r=mysql_fetch_array($query)){
-					?>					
-						<tr bgcolor="#fff">
-							<td align="center"><?php echo $no; ?></td>
-                            <td><?php echo $r['nama_obat']; ?></td>
-                            <td align="center">
-                            <?php
-                                $id_obat=$r['id_obat'];
-                                $ambil_obt=mysql_query("SELECT tmp_obat.kdobat,  obat.id_obat, tmp_obat.ambil, SUM(tmp_obat.ambil) AS total FROM tmp_obat, obat WHERE tmp_obat.kdobat=obat.id_obat AND tmp_obat.kdobat='$id_obat'");
-                                $r1=mysql_fetch_array($ambil_obt);
-                                
-		                   
-		                         
-                                if($r1!=0){
-                                    echo $r1['total']+0;
-                                }
-                                
-                                    
-                                
-                                    ?>
-                            </td>
-                            <td align="center">
-                            <?php
-                                $id_obat=$r['id_obat'];
-                                
-                               
-                                $sisa_obt=mysql_query("SELECT * FROM tmp_obat, obat WHERE tmp_obat.kdobat=obat.id_obat AND obat.id_obat='$id_obat'");
-                                $r2=mysql_fetch_array($sisa_obt);
-                                $sisa=$r2['jmlh_obat'];
-		                   
-		                         
-                                if($r1!=0){
-                                    echo $sisa+0;
-                                }
-                                
-                                    
-                                
-                                    ?>
-                            </td>
-                                  
-                            <td align="center">
-                            <?php
-                        echo $sisa+$r1['total'];
-                            ?>
-                            </td>
-						</tr>
-					
-					<?php
-					$no++;
-					}
-					?>
-              
-					
-		</table>
-            <?php
-            }
-            else{
-                ?>
-            <table class="table" border="1px">
-			<tr class="head">
-				<td width="10">NO. </td><td width="290">NAMA OBAT</td><td width="80">OBAT KELUAR </td><td width="80">OBAT SEKARANG</td><td width="80">TOTAL</td>
-			</tr>
-			
-			<?php										
-					$query=mysql_query("SELECT * FROM obat ORDER BY jmlh_obat DESC");
-					$no=1;
-					while($r=mysql_fetch_array($query)){
-					?>					
-						<tr bgcolor="#fff">
-							<td align="center"><?php echo $no; ?></td>
-                            <td><?php echo $r['nama_obat']; ?></td>
-                            <td align="center">
-                            <?php
-                                $id_obat=$r['id_obat'];
-                                $ambil_obt=mysql_query("SELECT tmp_obat.kdobat,  obat.id_obat, tmp_obat.ambil, tmp_obat.tgl_ambil, SUM(tmp_obat.ambil) AS total FROM tmp_obat, obat WHERE tmp_obat.kdobat=obat.id_obat AND tmp_obat.kdobat='$id_obat' AND tmp_obat.tgl_ambil BETWEEN '".$tgl1."' AND '".$tgl2."'");
-                                $r1=mysql_fetch_array($ambil_obt);
-		                         
-                                if($r1!=0){
-                                    echo $r1['total']+0;
-                                }
-                                
-                                    
-                                
-                                    ?>
-                            </td>
-                            <td align="center">
-                            <?php
-                                $id_obat=$r['id_obat'];
-                                
-                               
-                                $sisa_obt=mysql_query("SELECT * FROM tmp_obat, obat WHERE tmp_obat.kdobat=obat.id_obat AND obat.id_obat='$id_obat' AND tmp_obat.tgl_ambil BETWEEN '".$tgl1."' AND '".$tgl2."'");
-                                $r2=mysql_fetch_array($sisa_obt);
-                                $sisa=$r2['jmlh_obat'];
-		                   
-		                         
-                                if($r1!=0){
-                                    echo $sisa+0;
-                                }  
-                                
-                                    ?>
-                            </td>
-                                  
-                            <td align="center">
-                            <?php
-                        echo $sisa+$r1['total'];
-                            ?>
-                            </td>
-						</tr>
-					
-					<?php
-					$no++;
-					}
-					?>
-              
-					
-		</table>
-            <?php
-            }
-            ?>
-   
-		</div>
-	</body>
+    <head>
+        <title>Laporan Data Obat</title>
+        <link rel="shortcut icon" href="../img/laporan.png">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="span10 ">
+        <br>
+            <h2>SYSTEM APLIKASI REKAM MEDIS</h2>
+            <p><?=tgl_indo($tgl1)?> / <?=tgl_indo($tgl2)?></p>    
+        <div class="batas"></div>
+        <table class="table table-bordered">
+                <tr>
+                    <th colspan="2">Laporan Data Obat</th>
+                </tr>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Obat</th>
+                    <th>Harga </th>
+                    <th>Keterangan</th>
+                </tr>
+        <?php
+        $query=mysql_query("SELECT * FROM obat");
+        $num = mysql_num_rows($query);
+        $no=1;
+        while ($r=mysql_fetch_array($query)) {
+        ?>
+                <tr>
+                    <td><?=$no?></td>
+                    <td><?=$r['nama_obat']?></td>
+                    <td><?=$r['harga_obat']?></td>
+                    <td><?=$r['keterangan']?></td>
+                </tr>
+        <?php
+        $no++;
+        }
+        ?>        
+                <tr>
+                    <th colspan="4">Total data : <?=$num?></th>
+                </tr>
+        </table>
+        <div class="span4 offset6">
+            <p>Wonosobo, <?php echo tgl_indo(date('Y-m-d')); ?></p>
+            <p>Jr Manajer Personalia &amp; Kesejahteraan</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p><?php echo $manajer; ?></p>
+        </div>
+        </div>
+        <script type="text/javascript">
+            window.print();
+        </script>
+    </body>
 </html>
