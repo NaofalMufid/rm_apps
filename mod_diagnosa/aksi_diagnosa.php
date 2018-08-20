@@ -20,17 +20,8 @@ include ("../config/koneksi.php");
 		$id_diagnosa=$_POST['id_diagnosa'];
 		$nadia=$_POST['nadia'];
 		$ket=$_POST['ket'];
-		$cek=mysql_query("SELECT nama_diagnosa FROM diagnosa WHERE nama_diagnosa='$nadia'");
-        $num=mysql_num_rows($cek);
-        if($num>=1){
-            echo "<script>
-            alert('Data diagnosa $nadia sudah ada!');
-            window.location.href='../media.php?module=diagnosa';
-            </script>";
-        }
-        else{
 			$query=mysql_query("UPDATE diagnosa SET nama_diagnosa='$nadia', keterangan='$ket' WHERE id_diagnosa='$id_diagnosa'");
 			header("location:../media.php?module=diagnosa");	
-        }
+        
 }
 ?>

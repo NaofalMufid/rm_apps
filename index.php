@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!empty($_SESSION['iduser'])){
+	echo"
+		<script type='text/javascript'>
+			window.location.href='media.php?module=home';
+		</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 	<head>

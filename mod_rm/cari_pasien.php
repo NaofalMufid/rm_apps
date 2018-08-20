@@ -1,7 +1,9 @@
 <?php
 include ("../config/koneksi.php");
 $kode=$_POST['q'];
-$query=mysql_query("SELECT * FROM pasien WHERE no_rm = ".$kode." ");
+//$query=mysql_query("SELECT * FROM pasien WHERE no_rm = ".$kode." ");
+$cek = "SELECT * FROM pasien WHERE no_rm = ".$kode."";
+$query=mysql_query($cek);
 $r=mysql_fetch_array($query);
 $num=mysql_num_rows($query);
 if($num>=1){
@@ -11,7 +13,7 @@ if($num>=1){
                             
         <div>
 			<div class="control-group ">
-				<label class="control-label" for="inputText">No. Rekam Medis</label>
+				<label class="control-label" for="inputText">No. Rekam Medis <?=$cek?> </label>
 				<div class="controls">
 				<input type="text" class="span4" id="inputText" value="<?php echo $r['no_rm']; ?>" disabled>
 				</div>

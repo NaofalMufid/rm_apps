@@ -17,6 +17,27 @@ switch($_GET['act']){
 			 url:"mod_rm/cari_pasien.php",
 			 data:"q="+ strcari,
 			 success: function(data){
+			 	
+			 $("#hasil").css("display", "block");
+			  $("#hasil").html(data);			  
+			 }
+			});
+		   }
+		   else{
+		   $("#hasil").css("display", "block");
+		   }
+		  });
+		  //================
+		  $("#txtkdpasien").click(function() {
+		   var strcari = $("#txtkdpasien").val();
+		   if (strcari != "")
+		   {
+			$("#hasil").html("<img src='img/loader.gif'/>")
+			$.ajax({
+			 type:"post",
+			 url:"mod_rm/cari_pasien.php",
+			 data:"q="+ strcari,
+			 success: function(data){
 			 $("#hasil").css("display", "block");
 			  $("#hasil").html(data);			  
 			 }
@@ -376,7 +397,7 @@ switch($_GET['act']){
 						<label for="dgns" class="control-label">Diagnosa</label>
 						<div class="controls">
 							<input type="text" class="span8" id="diagnosa" name="diagnosa" value="" required="">
-							<input type="hidden" class="span8" id="id_dgs" name="id_dgs" value="">
+							<input type="hidden" id="id_dgs" name="id_dgs" value="">
 						</div>
 					</div>															
 					<div class="control-group">

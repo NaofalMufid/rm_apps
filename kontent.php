@@ -6,31 +6,14 @@
 			<div class="span4 pull-left">
 				<div class="info_akses span12">
 				<img src="img/logo.png" class="logo span12">
-					<?php
-					$fotouser=$rus['photo'];
-					if(empty($fotouser)){
-					?>
-					<div style="background:url(photo_user/default.png) #fff center;background-size:cover;" class="foto pull-left"></div>
-					<?php
-					}
-					else{
-					?>
-					<div style="background:url(<?php echo "photo_user/".$fotouser; ?>) center;background-size:cover;" class="foto pull-left"></div>
-					<?php
-					}
-					?>
 					<div class="span6 pull-left">
 					<h4><i class="icon-info-sign icon-white"></i> Info Akses</h4>
 					<div class="isi_akses">
-					<span>Kode User</span>
-						<span class="form"><?php echo $rus['kodeUser']; ?></span>
+					<span>Username</span>
+					<span class="form"><?php echo $rus['username']; ?></span>
 					
 					<span>Nama Lengkap</span>
-						<span class="form"><?php echo $rus['first_name']." ".$rus['last_name']; ?></span>
-					
-					<hr>
-					<span><a data-toggle="modal" href="#myModal" class="btn btn-info btn-small">Ganti Photo</a>	</span>
-						
+					<span class="form"><?php echo $rus['nama']; ?></span>
 					</div>
 					</div>
 				</div>

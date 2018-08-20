@@ -21,16 +21,16 @@ if(empty($_SESSION['iduser'])){
 		<title><?php include ("config/title.php"); ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
-		<link rel="shortcut icon" href="logo.png" >
 		<!-- Bootstrap -->
 		<link href="css/custom.css" rel="stylesheet" media="screen">
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link  href="css/bootstrap-responsive.min.css" rel="stylesheet"> 
-		<link  href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link  href="css/bootstrap-responsive.min.css"  rel ="stylesheet"> 
+        <link  href="font-awesome/css/font-awesome.min.css"  rel ="stylesheet">
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.autocomplete.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<!-- Bootstrap -->
+		<link rel="shortcut icon" href="logo.png" >
 	</head>
 	<body>
 	<header>
@@ -59,7 +59,7 @@ if(empty($_SESSION['iduser'])){
 							<ul class="nav pull-right">
 							  <li class="divider-vertical"></li>
 							  <li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user" ></i> Settings <b class="caret"></b></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> Settings <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 								  <li><a href="#"><i class="icon-refresh"></i> Ganti Password</a></li>
 								  <li class="divider"></li>
