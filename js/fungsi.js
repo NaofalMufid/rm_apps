@@ -1,9 +1,24 @@
-    $(function () {
+    $(document).ready(function() {
+        /** DATA MASTER USER */
+        // tampil form tambah data user
+        $("#tambah-user").click(function() {
+           $.ajax({url:'kanal/user_add.php',
+                success:function (html) {
+                    $("#dataDinamis").hide();
+                    $("#dataDinamis").html(html);
+                    $("#dataDinamis").fadeIn(1000);
+                },
+                error:function () {$("#dataDinamis").html('<h4>Ajax bermasalah</h4>')},
+            }); 
+        });
+    });    
+
+/*
+ Dulu
+     $(function () {
         $(".btn").popover('show');
         $(".btn-obat").popover('hide');
     });
-
-    $(document).ready(function() {
 
         // Selector input yang akan menampilkan autocomplete.
         $( "#diagnosa" ).autocomplete({
@@ -53,3 +68,4 @@
             document.getElementById('jumlah').value = jumObat;	
         }
     }
+*/    

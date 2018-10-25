@@ -1,4 +1,18 @@
 <?php
-$conn=@mysql_connect("localhost","root","") or die("Tidak Terkoneksi");
-$db=@mysql_select_db("db_rekammedis") or die ("Database Tidak Ditemukan");
+class Koneksi{
+    private $host = "localhost";
+    private $user = "sapa";
+    private $pass = "melbu";
+    private $dbnm = "db_rekammedis";
+    public $db;
+    public function __construct()
+    {
+        try{
+            $this->db = new PDO("mysql:host=$this->host;dbname=$this->dbnm", "$this->user", "$this->pass");
+        }catch(PDOException $e){
+            $e->getMessage();
+        }
+        return $this->db;
+    }
+}
 ?>
