@@ -1,17 +1,18 @@
-    $(document).ready(function() {
-        /** DATA MASTER USER */
-        // tampil form tambah data user
-        $("#tambah-user").click(function() {
-           $.ajax({url:'kanal/user_add.php',
-                success:function (html) {
-                    $("#dataDinamis").hide();
-                    $("#dataDinamis").html(html);
-                    $("#dataDinamis").fadeIn(1000);
-                },
-                error:function () {$("#dataDinamis").html('<h4>Ajax bermasalah</h4>')},
-            }); 
-        });
-    });    
+function editUser(id){
+    $.ajax({
+        type: 'POST',
+        dataType:'JSON',
+        url: 'proses/user.php',
+        data: 'action_type=data&id='+id,
+        success:function(data){
+            /*$('#idEdit').val(data.id);
+            $('#nameEdit').val(data.name);
+            $('#emailEdit').val(data.email);
+            $('#phoneEdit').val(data.phone);*/
+            $('#editForm').slideDown();
+        }
+    });
+}    
 
 /*
  Dulu

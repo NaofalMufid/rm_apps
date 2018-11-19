@@ -20,8 +20,8 @@ class User extends Koneksi
                         <td>'.$data['username'].'</td>
                         <td>'.$data['level'].'</td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="?kanal=ms_user&act=edit&id='.$data[id_user].'">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="?kanal=ms_user&act=hapus&id='.$data[id_user].'">Hapus</a>
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm glyphicon glyphicon-edit" onclick="editUser(\''.$data['id_user'].'\')"></a>
+                            <a class="btn btn-danger btn-sm glyphicon glyphicon-trash" href="?kanal=ms_user&act=hapus&id='.$data['id_user'].'"></a>
                         </td>
                     </tr>';
                 $no++;  

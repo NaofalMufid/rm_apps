@@ -18,6 +18,9 @@ require_once("config/koneksi.php");
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+        .none{display: none;}
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation">

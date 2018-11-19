@@ -151,5 +151,3 @@ if ($_GET['act']=='hapus') {
         </div>
     </div>
 </div>
-</body>
-</html>
