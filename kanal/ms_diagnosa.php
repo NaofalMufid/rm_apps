@@ -86,7 +86,8 @@ if ($_GET['act']=='hapus') {
     <!--Tampil data-->
     <div class="col-sm-7 col-md-8 col-sm-pull-5 col-md-pull-4">
         <legend>Master Diagnosa</legend>
-        <a href="?kanal=ms_diagnosa&act=tambah" class="btn btn-primary btn-sm">Tambah</a>
+        <a href="?kanal=ms_diagnosa&act=tambah" class="btn btn-primary btn-sm glyphicon glyphicon-plus-sign"> Tambah</a>
+        <p></p>
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <thead>

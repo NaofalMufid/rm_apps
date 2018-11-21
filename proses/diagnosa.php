@@ -16,8 +16,8 @@ class Diagnosa extends Koneksi
                         <td>'.$data['nama_diagnosa'].'</td>
                         <td>'.$data['keterangan'].'</td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="?kanal=ms_diagnosa&act=edit&id='.$data[id_diagnosa].'">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="?kanal=ms_diagnosa&act=hapus&id='.$data[id_diagnosa].'">Hapus</a>
+                            <a class="btn btn-success btn-sm glyphicon glyphicon-edit" href="?kanal=ms_diagnosa&act=edit&id='.$data['id_diagnosa'].'"></a>
+                            <a class="btn btn-danger btn-sm glyphicon glyphicon-trash" href="?kanal=ms_diagnosa&act=hapus&id='.$data['id_diagnosa'].'"></a>
                         </td>
                     </tr>';
                 $no++;  

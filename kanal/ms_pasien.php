@@ -29,16 +29,6 @@ if ($_GET['act']=='hapus') {
     header("location:index.php?kanal=ms_pasien");
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Master Pasien</title>
-</head>
-<body>
-
 <div class="row">
 <!--Tambah data-->
     <div class="col-sm-5 col-md-4 col-md-push-8 col-sm-push-7">
@@ -84,7 +74,6 @@ if ($_GET['act']=='hapus') {
         $id = $_GET['id'];
         $data = $psn->getPasien($id);
     ?>
-    <div class="row">
     <legend>Edit Data</legend>
                 
         <form action="" method="POST" role="form">
@@ -122,14 +111,16 @@ if ($_GET['act']=='hapus') {
         
             <input type="submit" class="btn btn-primary" name="upd-psn" value="Update">
         </form>
-    </div>
     <?php }?>
     </div>
     
     <!--Tampil data-->
     <div class="col-sm-7 col-md-8 col-sm-pull-5 col-md-pull-4">
         <legend>Master Pasien</legend>
-        <a href="?kanal=ms_pasien&act=tambah" class="btn btn-primary btn-sm">Tambah</a>
+        <a href="?kanal=ms_pasien&act=tambah" class="btn btn-primary btn-sm">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"> Tambah</span>
+        </a>
+        <p></p>
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <thead>

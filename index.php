@@ -41,7 +41,7 @@ require_once("config/koneksi.php");
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="index.php?kanal=ms_pasien">Master Pasien</a></li>
+                    <li><a href="index.php?kanal=ms_pasien">Pasien</a></li>
                     <li><a href="#">Rekam Medis</a></li>
                     <li><a href="index.php?kanal=ms_diagnosa">Kategori Diagnosa</a></li>
                     <li><a href="index.php?kanal=ms_obat">Master Obat</a></li>

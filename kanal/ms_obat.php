@@ -26,16 +26,6 @@ if ($_GET['act']=='hapus') {
     header("location:index.php?kanal=ms_obat");
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Master Obat</title>
-</head>
-<body>
-
 <div class="row">
 <!--Tambah data-->
     <div class="col-sm-5 col-md-4 col-md-push-8 col-sm-push-7">
@@ -98,7 +88,8 @@ if ($_GET['act']=='hapus') {
     <!--Tampil data-->
     <div class="col-sm-7 col-md-8 col-sm-pull-5 col-md-pull-4">
         <legend>Master Obat</legend>
-        <a href="?kanal=ms_obat&act=tambah" class="btn btn-primary btn-sm">Tambah</a>
+        <a href="?kanal=ms_obat&act=tambah" class="btn btn-primary btn-sm glyphicon glyphicon-plus-sign"> Tambah</a>
+        <p></p>
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <thead>
@@ -117,5 +108,3 @@ if ($_GET['act']=='hapus') {
         </div>
     </div>
 </div>
-</body>
-</html>

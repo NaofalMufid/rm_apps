@@ -21,8 +21,8 @@ class Pasien extends Koneksi
                         <td>'.$usia.'</td>
                         <td>'.$data['jenis_kelamin'].'</td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="?kanal=ms_pasien&act=edit&id='.$data[no_rm].'">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="?kanal=ms_pasien&act=hapus&id='.$data[no_rm].'">Hapus</a>
+                            <a class="btn btn-success btn-sm glyphicon glyphicon-edit" href="?kanal=ms_pasien&act=edit&id='.$data['no_rm'].'"></a>
+                            <a class="btn btn-danger btn-sm glyphicon glyphicon-trash" href="?kanal=ms_pasien&act=hapus&id='.$data['no_rm'].'"></a>
                         </td>
                     </tr>';
                 $no++;  
