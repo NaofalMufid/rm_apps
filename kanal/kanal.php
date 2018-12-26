@@ -9,6 +9,8 @@ if ($kanal == 'ms_pasien') {
     require_once('kanal/ms_obat.php');
 } else if ($kanal == 'ms_user') {
     require_once('kanal/user_data.php');
+} else if ($kanal == 'rm_medis') {
+    require_once('kanal/rekam_medis.php');
 } else {
     # code...
 }

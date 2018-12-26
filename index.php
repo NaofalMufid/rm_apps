@@ -42,7 +42,7 @@ require_once("config/koneksi.php");
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="index.php?kanal=ms_pasien">Pasien</a></li>
-                    <li><a href="#">Rekam Medis</a></li>
+                    <li><a href="index.php?kanal=rm_medis">Rekam Medis</a></li>
                     <li><a href="index.php?kanal=ms_diagnosa">Kategori Diagnosa</a></li>
                     <li><a href="index.php?kanal=ms_obat">Master Obat</a></li>
                     <li><a href="index.php?kanal=ms_user">Master User</a></li>
