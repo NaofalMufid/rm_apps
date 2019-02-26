@@ -58,20 +58,16 @@ if ($_GET['act']=='hapus') {
         $id = $_GET['id'];
         $data = $obt->getObat($id);
     ?>
-    <div class="row">
     <legend>Edit Data</legend>
                 
         <form action="" method="POST" role="form">
-            <div class="form-group">
-                <label for="" class="control-label">Id Obat</label>
-                <input type="text" class="form-control" id="idObat" name="idObat" value="<?=$id?>" readonly>
-            </div>
+                <input type="hidden" class="form-control" id="idObat" name="idObat" value="<?=$id?>" readonly>
             <div class="form-group">
                 <label for="">Nama Obat</label>
                 <input type="text" class="form-control" id="namaObat" name="namaObat" value="<?=$data['nama_obat']?>">
             </div>
             <div class="form-group">
-                <label for="">Tgl. Lahir</label>
+                <label for="">Harga Obat</label>
                 <input type="number" class="form-control" id="hrgObat" name="hrgObat" value="<?=$data['harga_obat']?>">
             </div>
             <div class="form-group">
@@ -81,7 +77,6 @@ if ($_GET['act']=='hapus') {
         
             <input type="submit" class="btn btn-primary" name="upd-obt" value="Update">
         </form>
-    </div>
     <?php }?>
     </div>
     

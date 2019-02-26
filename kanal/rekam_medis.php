@@ -1,5 +1,7 @@
 <?php
-$aksi="proses/medis.php";
+require_once('proses/pasien.php');
+$psn = new Pasien();
+
 switch($_GET['act']){
 	default:
 	?>

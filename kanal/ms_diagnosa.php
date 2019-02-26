@@ -62,7 +62,6 @@ if ($_GET['act']=='hapus') {
         $id = $_GET['id'];
         $data = $dgs->getDiagnosa($id);
     ?>
-    <div class="row">
     <legend>Edit Data</legend>
                 
         <form action="" method="POST" role="form">
@@ -79,7 +78,6 @@ if ($_GET['act']=='hapus') {
             </div>
             <input type="submit" class="btn btn-primary" name="upd-dgs" value="Update">
         </form>
-    </div>
     <?php }?>
     </div>
     

@@ -86,7 +86,7 @@ if ($_GET['act']=='hapus') {
         ?>    
 
         <!--Form Edit User -->
-            <h4>User Edit</h4>
+            <legend>User Edit</legend>
             <form method="POST" role="form">
                     <input type="hidden" class="form-control" id="idusr" name="idusr" value="<?=$id?>" readonly>
                 <div class="form-group">
